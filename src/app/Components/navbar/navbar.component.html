@@ -1,0 +1,4 @@
+<p-menubar [model]="items">
+  <button *ngIf="!isUserLoggedIn" (click)="logIn()" pButton type="button" label="LogIn" class="p-button-outlined"></button>
+  <button *ngIf="isUserLoggedIn" (click)="logOut()" pButton type="button" label="LogOut" icon="pi pi-power-off" class="p-button-outlined"></button>
+</p-menubar>
