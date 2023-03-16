@@ -1,10 +1,10 @@
 export class Salon {
-     idSalon: number = 0;
-     denominacion: string = '' ;
-     capacidad: string = '';
-     costoPorDia: number = 0;
-
-     constructor(){
-
-     }
+    idSalon: number;
+    denominacion: string;
+    capacidad: number;
+    calleDireccion: string;
+    numeroDireccion: string;
+    costoPorDia: number;
+    nombreImagen: string;
+    propietario: number;
 }
