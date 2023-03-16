@@ -1,0 +1,82 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$eplanner-primary: (
+ 50: #e8ebfa,
+ 100: #c6cbf2,
+ 200: #9faae9,
+ 300: #7789e0,
+ 400: #576ed9,
+ 500: #3453d1,
+ 600: #2e4bc6,
+ 700: #2341ba,
+ 800: #1836ae,
+ 900: #00229b,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$eplanner-secondary: (
+ 50: #fceaec,
+ 100: #f7cace,
+ 200: #e39595,
+ 300: #d46e6d,
+ 400: #db4f4a,
+ 500: #dd3f31,
+ 600: #cf3630,
+ 700: #bd2d2a,
+ 800: #b02724,
+ 900: #a21c18,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: rgba(black, 0.87),
+   400: rgba(black, 0.87),
+   500: rgba(black, 0.87),
+   600: rgba(black, 0.87),
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$my-primary: mat.define-palette($eplanner-primary, 500);
+$my-accent: mat.define-palette($eplanner-secondary, 600);
+
+$eplanner-light: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+$eplanner-dark: mat.define-dark-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+@media (prefers-color-scheme: light) {
+  @include mat.all-component-themes($eplanner-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  @include mat.all-component-themes($eplanner-dark);
+}

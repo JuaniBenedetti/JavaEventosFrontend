@@ -1,0 +1,38 @@
+* {
+    user-select: none;
+}
+
+.nombreSalon {
+    padding: 16px;
+    text-align: start;
+    font-size: 24px;
+}
+
+.precio {
+    font-size: 24px;
+}
+
+.psuspensivos {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.disabled-pointer {
+    pointer-events: none;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+    padding: 0px 24px 0px;
+}
+  
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+    margin-left: 0px;
+    margin-right: 16px;
+    color: var(--ion-color-primary);
+}
+
+.mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
+    margin-bottom: 16px;
+    height: auto;
+}
