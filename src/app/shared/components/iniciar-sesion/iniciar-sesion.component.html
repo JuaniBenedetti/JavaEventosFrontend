@@ -1,0 +1,39 @@
+<form [formGroup]="datosUsuario" (ngSubmit)="datosUsuario.valid ? iniciarSesion() : null">
+  <ion-grid class="ion-padding-top">
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <p class="info">Te damos la bienvenida.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <mat-form-field appearance="outline" hideRequiredMarker="true">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput formControlName="nombreUsuario">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-error *ngIf="datosUsuario.get('nombreUsuario')?.hasError('required')">
+            Debe ingresar un nombre de usuario
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" hideRequiredMarker="true">
+          <mat-label>Clave</mat-label>
+          <input matInput formControlName="claveUsuario" [type]="mostrarClave ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="mostrarClave = !mostrarClave">
+            <mat-icon>{{mostrarClave ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="datosUsuario.get('claveUsuario')?.hasError('required')">
+            Debe ingresar una clave
+          </mat-error>
+        </mat-form-field>
+        <ion-row class="botones">
+          <ion-col>
+            <button mat-raised-button (click)="crearCuenta.emit()">Crear cuenta</button>
+          </ion-col>
+          <ion-col class="ion-text-end">
+            <button type="submit" mat-raised-button color="primary">Iniciar sesión</button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>   

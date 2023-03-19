@@ -1,0 +1,154 @@
+<mat-stepper linear="true" [orientation]="platform.width() > 750 ? 'horizontal' : 'vertical'">
+  <mat-step [stepControl]="datosUsuario" label="Datos de la cuenta">
+    <form [formGroup]="datosUsuario">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <p class="info">Recuerda estos datos, son los que utilizarás para acceder a nuestra aplicación.</p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12" size-sm="10" size-md="8">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="emailUsuario" placeholder="ejemplo@ejemplo.com">
+              <mat-icon matSuffix>alternate_email</mat-icon>
+              <mat-error *ngIf="datosUsuario.get('emailUsuario')?.hasError('required')">
+                Debe ingresar un email
+              </mat-error>
+              <mat-error *ngIf="datosUsuario.get('emailUsuario')?.hasError('email')">
+                El email ingresado no es válido
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre de usuario</mat-label>
+              <input matInput formControlName="nombreUsuario">
+              <mat-icon matSuffix>account_circle</mat-icon>
+              <mat-error *ngIf="datosUsuario.get('nombreUsuario')?.hasError('required')">
+                Debe ingresar un nombre de usuario
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Clave</mat-label>
+              <input matInput formControlName="claveUsuario" [type]="mostrarClave ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="mostrarClave = !mostrarClave">
+                <mat-icon>{{mostrarClave ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="datosUsuario.get('claveUsuario')?.hasError('required')">
+                Debe ingresar una clave
+              </mat-error>
+            </mat-form-field>
+            <ion-row class="botones">
+              <ion-col *ngIf="platform.width() > 500">
+                <button mat-raised-button (click)="iniciarSesion.emit()">Iniciar sesión</button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosUsuario.valid">Siguiente</button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="datosPersonales" label="Datos personales">
+    <form [formGroup]="datosPersonales">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <p class="info">Ya casi estamos! Queremos saber un poco de vos para ofrecerte un servicio seguro.</p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12" size-sm="10" size-md="8">
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido</mat-label>
+              <input matInput formControlName="apellido" mask="S*">
+              <mat-error *ngIf="datosPersonales.get('apellido')?.hasError('required')">
+                Debe ingresar su apellido
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" mask="S*">
+              <mat-error *ngIf="datosPersonales.get('nombre')?.hasError('required')">
+                Debe ingresar su nombre
+              </mat-error>
+            </mat-form-field>
+            <ion-row class="ion-justify-content-between tipoNroDoc">
+              <ion-col size="12" size-md="4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Tipo de doc.</mat-label>
+                  <mat-select formControlName="tipoDoc">
+                    <mat-option *ngFor="let tipo of tiposDoc" [value]="tipo">
+                      {{tipo}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="12" size-md="7">
+                <mat-form-field appearance="outline">
+                  <mat-label>Número de documento</mat-label>
+                  <input matInput formControlName="nroDoc" [mask]="ngxMaskNroDoc()"> 
+                  <mat-error *ngIf="datosPersonales.get('nroDoc')?.hasError('required')">
+                    Debe ingresar su número de {{datosPersonales.get('tipoDoc')?.value}}
+                  </mat-error>
+                  <mat-error *ngIf="datosPersonales.get('nroDoc')?.hasError('minlength')">
+                    El número de {{datosPersonales.get('tipoDoc')?.value}} es inválido
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput formControlName="fechaNac" [matDatepicker]="picker" placeholder="DD/MM/AAAA">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker touchUi #picker></mat-datepicker>
+              <mat-error *ngIf="datosPersonales.get('fechaNac')?.hasError('required')">
+                Debe ingresar su fecha de nacimiento
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono</mat-label>
+              <input matInput formControlName="telefono" mask="0000000000">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="datosPersonales.get('telefono')?.hasError('required')">
+                Debe ingresar su telefono
+              </mat-error>
+              <mat-error *ngIf="datosPersonales.get('telefono')?.hasError('minlength')">
+                El teléfono ingresado no es válido
+              </mat-error>
+            </mat-form-field>
+            <ion-row class="botones">
+              <ion-col>
+                <button mat-button matStepperPrevious color="primary">Volver</button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosPersonales.valid">Finalizar</button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </mat-step>
+  <mat-step  label="Activación de la cuenta">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <p class="info">Por último, te pedimos que ingreses el código de activación que te enviamos por e-mail.</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="10" size-md="8">
+          <app-input-activacion></app-input-activacion>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </mat-step>
+</mat-stepper>
+<ion-row *ngIf="platform.width() < 500">
+  <ion-col class="ion-text-center">
+    <button mat-raised-button (click)="iniciarSesion.emit()">Iniciar sesión</button>
+  </ion-col>
+</ion-row>

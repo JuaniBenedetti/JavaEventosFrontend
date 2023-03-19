@@ -1,0 +1,7 @@
+<ion-row [formGroup]="inputActivacion" class="ion-justify-content-center">
+  <ng-container *ngFor="let input of inputArray">
+    <mat-form-field subscriptSizing="dynamic">
+      <input matInput [id]="input" [formControlName]="input" mask="0" (input)="onInput($event)">
+    </mat-form-field>
+  </ng-container>
+</ion-row>

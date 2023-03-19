@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
 

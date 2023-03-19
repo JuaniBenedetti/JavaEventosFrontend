@@ -4,7 +4,7 @@
     <mat-card-content>
       <img src="assets\images\salones\{{salon.nombreImagen}}.jpg">
     </mat-card-content>
-    <mat-expansion-panel hideToggle [expanded]="this.platform.width() < 500" #panel class="mat-elevation-z0 disabled-pointer">
+    <mat-expansion-panel hideToggle [expanded]="!platform.is('desktop')" #panel class="mat-elevation-z0 disabled-pointer">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <p class="precio psuspensivos">{{salon.costoPorDia | currency:'$ ':'symbol':'4.0-0'}}</p>
