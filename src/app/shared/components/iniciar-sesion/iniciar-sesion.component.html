@@ -2,7 +2,7 @@
   <ion-grid class="ion-padding-top">
     <ion-row>
       <ion-col class="ion-text-center">
-        <p class="info">Te damos la bienvenida.</p>
+        <p class="info">Te damos la bienvenida</p>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -18,7 +18,7 @@
         <mat-form-field appearance="outline" hideRequiredMarker="true">
           <mat-label>Clave</mat-label>
           <input matInput formControlName="claveUsuario" [type]="mostrarClave ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="mostrarClave = !mostrarClave">
+          <button mat-icon-button matSuffix  type="button" (click)="mostrarClave = !mostrarClave">
             <mat-icon>{{mostrarClave ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="datosUsuario.get('claveUsuario')?.hasError('required')">
@@ -27,11 +27,14 @@
         </mat-form-field>
         <ion-row class="botones">
           <ion-col>
-            <button mat-raised-button (click)="crearCuenta.emit()">Crear cuenta</button>
+            <button mat-raised-button type="button" (click)="crearCuenta.emit()">Crear cuenta</button>
           </ion-col>
           <ion-col class="ion-text-end">
-            <button type="submit" mat-raised-button color="primary">Iniciar sesión</button>
+            <button mat-raised-button type="submit" color="primary">Iniciar sesión</button>
           </ion-col>
+        </ion-row>
+        <ion-row class="botonesRecuperacion">
+          <span matTooltip="Función en desarrollo" #tooltip=matTooltip (click)="tooltip.toggle()"><button mat-button disabled>Olvidé mi usuario o clave</button></span>
         </ion-row>
       </ion-col>
     </ion-row>

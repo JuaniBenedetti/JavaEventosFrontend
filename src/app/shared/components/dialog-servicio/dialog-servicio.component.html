@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{data.modo}} servicio</h2>
+<form [formGroup]="datosServicio" (ngSubmit)="datosServicio.valid ? guardarServicio() : null">
+  <mat-dialog-content>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="8">
+          <mat-form-field appearance="outline">
+            <mat-label>Denominación</mat-label>
+            <input matInput formControlName="denominacion">
+            <mat-error *ngIf="datosServicio.get('denominacion')?.hasError('required')">
+              Debe ingresar una denominación
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Costo por día</mat-label>
+            <input matInput formControlName="costoPorDia">
+            <mat-error *ngIf="datosServicio.get('costoPorDia')?.hasError('required')">
+              Debe ingresar un costo por día
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo de servicio</mat-label>
+            <mat-select formControlName="tipoServicio">
+              <mat-option *ngFor="let tipo of tipos" [value]="tipo">
+                {{tipo.denominacion}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datosServicio.get('tipoServicio')?.hasError('required')">
+              Debe ingresar un tipo de servicio
+            </mat-error>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </mat-dialog-content>
+  <mat-dialog-actions class="ion-justify-content-between">
+    <button mat-button mat-dialog-close>Volver</button>
+    <button mat-raised-button type="submit" color="primary">Confirmar</button>
+  </mat-dialog-actions>
+</form>

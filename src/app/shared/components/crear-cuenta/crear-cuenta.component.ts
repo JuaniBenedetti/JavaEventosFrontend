@@ -1,6 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 import { Platform } from '@ionic/angular';
+import { DialogConfirmacionEmailComponent } from '../dialog-confirmacion-email/dialog-confirmacion-email.component';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -24,7 +27,8 @@ export class CrearCuentaComponent  implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    public platform: Platform
+    public platform: Platform,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -49,6 +53,16 @@ export class CrearCuentaComponent  implements OnInit {
         Validators.required,
         Validators.minLength(value == 'LC' ? 7 : 8)
       ]);
+    });
+  }
+
+  confirmarEmail(stepper: MatStepper): void {
+    const dialogRef = this.dialog.open(DialogConfirmacionEmailComponent, {
+      width: '400px',
+      data: this.datosUsuario.get('emailUsuario')?.value
+    });
+    dialogRef.afterClosed().subscribe((value) => {
+      value ? stepper.next() : this.datosUsuario.controls['emailUsuario'].setValue('')
     });
   }
 

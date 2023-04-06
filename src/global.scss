@@ -76,8 +76,14 @@ mat-card-header.header {
 
 // Descripción de card y stepper en login y crear-cuenta.
 .info {
-    font-size: 26px;
+    font-size: 20px;
     padding: 0 1rem 0 1rem;
+}
+
+// Descripción de card general
+.descripcionCard {
+    font-size: 18px;
+    margin: 16px;
 }
 
 @media screen and (max-width: 500px) {
@@ -119,4 +125,10 @@ app-input-activacion mat-form-field {
 // Agrego espacio para los mensajes de error
 .mat-mdc-form-field-subscript-wrapper {
     margin-bottom: 16px;
+}
+
+// Alineo los paginator al centro siempre
+div.mat-mdc-paginator-container {
+    justify-content: center;
+    margin-bottom: 5px;
 }

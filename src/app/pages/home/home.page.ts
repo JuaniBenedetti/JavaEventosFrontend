@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
+import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +21,9 @@ export class HomePage implements OnInit {
   ];
 
   constructor(
+    public dialog: MatDialog,
     private _salonService: SalonService
-    ) {}
+    ) { }
 
   ngOnInit(): void {
     this._salonService.findAll().subscribe(salones => {
@@ -45,4 +48,11 @@ export class HomePage implements OnInit {
       default: this.salonesFiltrados = [...this.salones];
     }
   }
+
+  confirmacionSalon(salon: Salon): void {
+    const dialogRef = this.dialog.open(DialogSalonComponent, {
+      data: salon
+    });
+  }
+
 }

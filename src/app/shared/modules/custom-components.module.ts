@@ -9,6 +9,11 @@ import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputActivacionComponent } from '../components/input-activacion/input-activacion.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { DialogSalonComponent } from '../components/dialog-salon/dialog-salon.component';
+import { DialogConfirmacionEmailComponent } from '../components/dialog-confirmacion-email/dialog-confirmacion-email.component';
+import { MenuComponent } from '../components/menu/menu.component';
+import { DialogServicioComponent } from '../components/dialog-servicio/dialog-servicio.component';
+import { DialogTipoServicioComponent } from '../components/dialog-tipo-servicio/dialog-tipo-servicio.component';
 
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
@@ -20,7 +25,12 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     NavbarComponent,
     CrearCuentaComponent,
     IniciarSesionComponent,
-    InputActivacionComponent
+    InputActivacionComponent,
+    DialogSalonComponent,
+    DialogConfirmacionEmailComponent,
+    MenuComponent,
+    DialogServicioComponent,
+    DialogTipoServicioComponent
   ],
   imports: [
     CommonModule, 
@@ -34,7 +44,12 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     NavbarComponent,
     CrearCuentaComponent,
     IniciarSesionComponent,
-    InputActivacionComponent
+    InputActivacionComponent,
+    DialogSalonComponent,
+    DialogConfirmacionEmailComponent,
+    MenuComponent,
+    DialogServicioComponent,
+    DialogTipoServicioComponent
   ]
 })
 export class CustomComponentsModule { }

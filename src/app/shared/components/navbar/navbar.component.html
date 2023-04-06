@@ -1,6 +1,22 @@
 <mat-toolbar color="primary">
+  <button *ngIf="usuarioAutenticado" mat-icon-button (click)="abrirMenu.emit()" onclick="blur()" matTooltip="Menú">
+    <mat-icon>menu</mat-icon>
+  </button>
   <span>EPlanner</span>
-  <!-- <button mat-icon-button (click)="toggleDarkMode()">
-    <mat-icon>light_mode</mat-icon>
-  </button> -->
+  <span class="spacer"></span>
+  <span *ngIf="usuarioAutenticado">
+    <button mat-icon-button [matMenuTriggerFor]="cuenta" matTooltip="Mi cuenta">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #cuenta="matMenu">
+      <button mat-menu-item (click)="cerrarSesion()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+      <button mat-menu-item matTooltip="Función en desarrollo" #tooltip=matTooltip (click)="tooltip.toggle()" disabled>
+        <mat-icon>account_circle</mat-icon>
+        <span>Datos de la cuenta</span>
+      </button>
+    </mat-menu>
+  </span>
 </mat-toolbar>

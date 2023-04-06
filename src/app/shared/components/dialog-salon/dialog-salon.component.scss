@@ -1,0 +1,31 @@
+ion-grid, ion-col {
+    padding: 0;
+}
+
+h1 {
+    color: var(--ion-color-primary);
+}
+
+.mat-mdc-dialog-actions {
+    padding-inline: 24px;
+}
+
+.descripcion {
+    max-width: 400px;
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+    margin-left: 0px;
+    margin-right: 16px;
+    color: var(--ion-color-primary);
+}
+
+.mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
+    margin-bottom: 16px;
+    height: auto;
+}

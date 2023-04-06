@@ -1,10 +1,10 @@
-<mat-stepper linear="true" [orientation]="platform.width() > 750 ? 'horizontal' : 'vertical'">
+<mat-stepper #stepper linear="true" [orientation]="platform.width() > 750 ? 'horizontal' : 'vertical'">
   <mat-step [stepControl]="datosUsuario" label="Datos de la cuenta">
     <form [formGroup]="datosUsuario">
       <ion-grid>
         <ion-row>
           <ion-col class="ion-text-center">
-            <p class="info">Recuerda estos datos, son los que utilizarás para acceder a nuestra aplicación.</p>
+            <p class="info">Recuerda estos datos, son los que utilizarás para acceder a nuestra aplicación</p>
           </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
@@ -43,7 +43,7 @@
                 <button mat-raised-button (click)="iniciarSesion.emit()">Iniciar sesión</button>
               </ion-col>
               <ion-col class="ion-text-end">
-                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosUsuario.valid">Siguiente</button>
+                <button mat-raised-button color="primary" [disabled]="!datosUsuario.valid" (click)="confirmarEmail(stepper)">Siguiente</button>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -56,7 +56,7 @@
       <ion-grid>
         <ion-row>
           <ion-col class="ion-text-center">
-            <p class="info">Ya casi estamos! Queremos saber un poco de vos para ofrecerte un servicio seguro.</p>
+            <p class="info">Ya casi estamos! Queremos saber un poco de vos para ofrecerte un servicio seguro</p>
           </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
@@ -136,7 +136,7 @@
     <ion-grid>
       <ion-row>
         <ion-col class="ion-text-center">
-          <p class="info">Por último, te pedimos que ingreses el código de activación que te enviamos por e-mail.</p>
+          <p class="info">Por último, te pedimos que ingreses el código de activación que te enviamos por e-mail</p>
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center">

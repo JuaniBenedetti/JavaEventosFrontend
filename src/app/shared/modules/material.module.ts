@@ -22,6 +22,11 @@ import {MatTableModule} from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu'; 
 
 
 @NgModule({
@@ -45,7 +50,12 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTableModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSidenavModule,
+    MatMenuModule
   ],
   exports: [
     MatCardModule,
@@ -66,7 +76,12 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTableModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSidenavModule,
+    MatMenuModule
   ],
   providers: [
     {

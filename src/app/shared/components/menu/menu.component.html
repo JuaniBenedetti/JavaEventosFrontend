@@ -1,0 +1,25 @@
+<mat-action-list>
+  <div mat-subheader>Menú</div>
+  <span *ngIf="true">
+    <mat-list-item (click)="navigateTo.emit('home')">
+      <mat-icon matListItemIcon fontIcon="home"></mat-icon>
+      <span matListItemTitle>Salones</span>
+    </mat-list-item>
+    <mat-list-item (click)="navigateTo.emit('servicio')">
+      <mat-icon matListItemIcon fontIcon="local_bar"></mat-icon>
+      <span matListItemTitle>Servicios</span>
+    </mat-list-item>
+    <mat-list-item (click)="navigateTo.emit('tipoServicio')">
+      <mat-icon matListItemIcon fontIcon="format_list_bulleted"></mat-icon>
+      <span matListItemTitle>Tipos de Servicios</span>
+    </mat-list-item>
+    <mat-list-item (click)="navigateTo.emit('reserva')">
+      <mat-icon matListItemIcon fontIcon="receipt_long"></mat-icon>
+      <span matListItemTitle>Reservas</span>
+    </mat-list-item>
+  </span>
+  <mat-list-item (click)="closeMenu.emit()">
+    <mat-icon matListItemIcon fontIcon="close"></mat-icon>
+    <span matListItemTitle>Cerrar</span>
+  </mat-list-item>
+</mat-action-list>

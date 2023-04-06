@@ -1,0 +1,71 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size-sm="12" size-md="8" size-xl="6">
+        <mat-card>
+          <mat-card-header class="header">
+            <mat-card-title>Tipos de servicios</mat-card-title>
+            <div>
+              <button mat-icon-button matTooltip="Salir">
+              <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <p class="descripcionCard">En esta sección podrás administrar los tipos de servicios ofrecidos.</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xs="12" size-sm="8" size-lg="6" class="ion-no-padding">
+                  <mat-form-field subscriptSizing="dynamic">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <mat-label>Buscar un tipo de servicio</mat-label>
+                    <input matInput #input (keyup)="busquedaFiltro($event)">
+                  </mat-form-field>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="auto" class="pColButtonAdd">
+                  <button mat-raised-button color="primary">
+                    Nuevo
+                    <mat-icon iconPositionEnd>add</mat-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+              <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="tiposServicio" matSort #table>
+                  <ng-container matColumnDef="idTipoServicio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.idTipoServicio}} </td>
+                  </ng-container>             
+                  <ng-container matColumnDef="denominacion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Denominacion </th>
+                    <td mat-cell *matCellDef="let row"> {{row.denominacion}} </td>
+                  </ng-container>     
+                  <ng-container matColumnDef="edicion" >
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button mat-icon-button>
+                        <mat-icon color="primary">edit</mat-icon>
+                      </button>
+                      <button mat-icon-button>
+                        <mat-icon color="warn">delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>    
+                  <tr mat-header-row *matHeaderRowDef="columnasIncluidas"></tr>
+                  <tr mat-row *matRowDef="let row; columns: columnasIncluidas;"></tr>   
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              </div>            
+            </ion-grid>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button>Volver</button>
+          </mat-card-actions>
+        </mat-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
