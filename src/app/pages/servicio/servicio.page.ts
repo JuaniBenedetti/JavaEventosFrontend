@@ -36,7 +36,6 @@ export class ServicioPage implements OnInit {
 
   busquedaFiltro(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
     this.servicios.filter = filterValue.trim().toLowerCase();
 
     if (this.servicios.paginator) {

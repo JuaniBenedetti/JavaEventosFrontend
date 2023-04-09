@@ -3,7 +3,7 @@
   <mat-dialog-content>
     <ion-grid>
       <ion-row class="ion-justify-content-center">
-        <ion-col size="8">
+        <ion-col>
           <mat-form-field appearance="outline">
             <mat-label>Denominación</mat-label>
             <input matInput formControlName="denominacion">
@@ -13,14 +13,15 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Costo por día</mat-label>
-            <input matInput formControlName="costoPorDia">
+            <input matInput formControlName="costoPorDia" mask="separator" thousandSeparator=".">
+            <mat-icon matSuffix>attach_money</mat-icon>
             <mat-error *ngIf="datosServicio.get('costoPorDia')?.hasError('required')">
               Debe ingresar un costo por día
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Tipo de servicio</mat-label>
-            <mat-select formControlName="tipoServicio">
+            <mat-select formControlName="tipoServicio" [compareWith]="matSelectComparar">
               <mat-option *ngFor="let tipo of tipos" [value]="tipo">
                 {{tipo.denominacion}}
               </mat-option>
@@ -34,7 +35,7 @@
     </ion-grid>
   </mat-dialog-content>
   <mat-dialog-actions class="ion-justify-content-between">
-    <button mat-button mat-dialog-close>Volver</button>
-    <button mat-raised-button type="submit" color="primary">Confirmar</button>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button type="submit" color="primary">{{textoBoton}}</button>
   </mat-dialog-actions>
 </form>

@@ -10,6 +10,14 @@ export class ServicioService {
 
   constructor(private http: HttpClient) { }
 
+  save(servicio: Servicio): Observable<Servicio> {
+    return this.http.post<Servicio>("http://localhost:8080/servicio/save", servicio);
+  }
+
+  update(servicio: Servicio): Observable<Servicio> {
+    return this.http.put<Servicio>("http://localhost:8080/servicio/update", servicio);
+  }
+
   findAll(): Observable<Servicio[]> {
     return this.http.get<Servicio[]>("http://localhost:8080/servicio/findAll");
   }
