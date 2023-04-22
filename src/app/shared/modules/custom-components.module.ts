@@ -14,6 +14,7 @@ import { DialogConfirmacionEmailComponent } from '../components/dialog-confirmac
 import { MenuComponent } from '../components/menu/menu.component';
 import { DialogServicioComponent } from '../components/dialog-servicio/dialog-servicio.component';
 import { DialogTipoServicioComponent } from '../components/dialog-tipo-servicio/dialog-tipo-servicio.component';
+import { DialogConfirmacionComponent } from '../components/dialog-confirmacion/dialog-confirmacion.component';
 
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
@@ -30,7 +31,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     DialogConfirmacionEmailComponent,
     MenuComponent,
     DialogServicioComponent,
-    DialogTipoServicioComponent
+    DialogTipoServicioComponent,
+    DialogConfirmacionComponent
   ],
   imports: [
     CommonModule, 
@@ -49,7 +51,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     DialogConfirmacionEmailComponent,
     MenuComponent,
     DialogServicioComponent,
-    DialogTipoServicioComponent
+    DialogTipoServicioComponent,
+    DialogConfirmacionComponent
   ]
 })
 export class CustomComponentsModule { }

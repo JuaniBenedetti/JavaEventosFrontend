@@ -18,6 +18,10 @@ export class ServicioService {
     return this.http.put<Servicio>("http://localhost:8080/servicio/update", servicio);
   }
 
+  delete(idServicio: number) {
+    return this.http.delete<Servicio>(`http://localhost:8080/servicio/delete?id=${idServicio}`);
+  }
+
   findAll(): Observable<Servicio[]> {
     return this.http.get<Servicio[]>("http://localhost:8080/servicio/findAll");
   }

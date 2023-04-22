@@ -24,6 +24,10 @@ export class NavbarComponent  implements OnInit {
     )
   }
 
+  navigateToHome() {
+    this.router.navigate(['home']);
+  }
+
   cerrarSesion(): void {
     this._iniciarSesion.cerrarSesion();
     this.router.navigate(['landing']);

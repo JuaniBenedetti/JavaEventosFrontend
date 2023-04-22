@@ -27,6 +27,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatPaginatorModule,
     MatSortModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule,
+    MatChipsModule
   ],
   exports: [
     MatCardModule,
@@ -81,7 +85,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatPaginatorModule,
     MatSortModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule,
+    MatChipsModule
   ],
   providers: [
     {

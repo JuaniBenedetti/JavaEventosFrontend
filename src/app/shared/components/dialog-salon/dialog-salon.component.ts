@@ -13,8 +13,6 @@ export class DialogSalonComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public salon: Salon
   ) { }
 
-  ngOnInit() {
-    console.log(this.salon);
-  }
+  ngOnInit() {}
 
 }

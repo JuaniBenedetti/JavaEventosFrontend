@@ -2,7 +2,7 @@
   <button *ngIf="usuarioAutenticado" mat-icon-button (click)="abrirMenu.emit()" onclick="blur()" matTooltip="Menú">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>EPlanner</span>
+  <span (click)="navigateToHome()" class="cursor">EPlanner</span>
   <span class="spacer"></span>
   <span *ngIf="usuarioAutenticado">
     <button mat-icon-button [matMenuTriggerFor]="cuenta" matTooltip="Mi cuenta">

@@ -1,10 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Servicio } from 'src/app/model/servicio';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
+import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
+import { DialogConfirmacionComponent } from 'src/app/shared/components/dialog-confirmacion/dialog-confirmacion.component';
 import { DialogServicioComponent } from 'src/app/shared/components/dialog-servicio/dialog-servicio.component';
 
 @Component({
@@ -22,15 +25,50 @@ export class ServicioPage implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private _servicioService: ServicioService
+    private location: Location,
+    private _servicioService: ServicioService,
+    private _snackInfo: SnackInfoService
   ) { }
 
   ngOnInit() {
+    this.cargarData();
+  }
+
+  cargarData(): void {
     this._servicioService.findAll().subscribe((servicios: Servicio[]) => {
       this.servicios = new MatTableDataSource(servicios);
       this.paginator._intl.itemsPerPageLabel="Elementos por página"; // Edito string del paginador
       this.servicios.paginator = this.paginator;
       this.servicios.sort = this.sort;
+    });
+  }
+
+  guardarServicio(modo: string, servicio?: Servicio): void {
+    const dialogRef = this.dialog.open(DialogServicioComponent, {
+      data: {servicio, modo}
+    });
+    dialogRef.afterClosed().subscribe(v => {v ? this.cargarData() : null});
+  }
+
+  eliminarServicio(servicio: Servicio): void {
+    const dialogRef = this.dialog.open(DialogConfirmacionComponent, {
+      data: {
+        title: "Eliminar servicio",
+        message: `¿Desea eliminar el servicio "${servicio.denominacion}"?`,
+        btnPri: "Eliminar",
+        btnSec: "Cancelar"
+      }
+    });
+    dialogRef.afterClosed().subscribe((value) => {
+      if (value) {
+        this._servicioService.delete(servicio.idServicio).subscribe({
+          next: (resp) => {
+            this.snackBar('ok', 'Servicio eliminado con éxito');
+            this.cargarData();
+          },
+          error: (error) => {this.snackBar('error', 'El Servicio no pudo ser eliminado');}
+        });
+      };
     });
   }
 
@@ -43,9 +81,11 @@ export class ServicioPage implements OnInit {
     }
   }
 
-  accionServicio(modo: string, servicio?: Servicio): void {
-    const dialogRef = this.dialog.open(DialogServicioComponent, {
-      data: {servicio, modo}
-    });
+  volver(): void {
+    this.location.back();
+  }
+
+  snackBar(status: string, message: string) {
+    this._snackInfo.show(status, message);
   }
 }

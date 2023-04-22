@@ -50,7 +50,7 @@
         box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.50);
     }
 } 
-
+  
 // Botones para volver y continuar.
 ion-row.botones ion-col, ion-row.tipoNroDoc ion-col {
     padding: 0;
@@ -131,4 +131,41 @@ app-input-activacion mat-form-field {
 div.mat-mdc-paginator-container {
     justify-content: center;
     margin-bottom: 5px;
+}
+
+// Estilos para snackbar
+.mat-mdc-snack-bar-container {
+    --mdc-snackbar-supporting-text-size: 16px;
+
+    &.snackbar-ok {
+        .mdc-snackbar__surface {
+            background-color: map-get($eplanner-success, 400);
+    }
+        .mdc-snackbar__label {
+            color: map-get(map-get($eplanner-success, "contrast"), 400);
+        }
+    }
+
+    &.snackbar-error {
+        .mdc-snackbar__surface {
+            background-color: map-get($eplanner-error, 400);
+    }
+        .mdc-snackbar__label {
+            color: map-get(map-get($eplanner-error, "contrast"), 400);
+        }
+    }
+
+    &.snackbar-warn {
+        .mdc-snackbar__surface {
+            background-color: map-get($eplanner-warn, 200);
+    }
+        .mdc-snackbar__label {
+            color: map-get(map-get($eplanner-warn, "contrast"), 200);
+        }
+    }
+}
+
+// Quito padding para mostrar errores con mensajes mas largos
+div.mat-mdc-form-field-error-wrapper {
+    padding: 0px;
 }

@@ -52,13 +52,93 @@ $eplanner-secondary: (
  )
 );
 
+$eplanner-success: (
+  50: #edfbea,
+  100: #d2f3ca,
+  200: #b4eba7,
+  300: #94e382,
+  400: #78dc64,
+  500: #5cd547,
+  600: #4cc43e,
+  700: #32af34,
+  800: #0d9b2a,
+  900: #00771a,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: rgba(black, 0.87),
+    900: white,
+  )
+);
+
+$eplanner-error: (
+  50: #ffecef,
+  100: #ffcfd5,
+  200: #f99d9d,
+  300: #f37777,
+  400: #ff5653,
+  500: #ff4437,
+  600: #f73b37,
+  700: #e43031,
+  800: #d7282a,
+  900: #c81b1d,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: white,
+    900: white,
+  )
+);
+
+$eplanner-warn: (
+  50: #fff8e5,
+  100: #ffecbc,
+  200: #ffe093,
+  300: #ffd56c,
+  400: #feca55,
+  500: #fec246,
+  600: #fcb542,
+  700: #faa33d,
+  800: #f89439,
+  900: #f67731,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: rgba(black, 0.87),
+    900: rgba(black, 0.87),
+  )
+);
+
 $my-primary: mat.define-palette($eplanner-primary, 500);
 $my-accent: mat.define-palette($eplanner-secondary, 600);
+
+$my-success: mat.define-palette($eplanner-success, 400);
+$my-error: mat.define-palette($eplanner-error, 400);
+$my-warn: mat.define-palette($eplanner-warn, 300);
 
 $eplanner-light: mat.define-light-theme((
  color: (
    primary: $my-primary,
-   accent: $my-accent
+   accent: $my-accent,
+   warn: $my-error
  ),
  typography: mat.define-typography-config(),
  density: 0,
@@ -67,7 +147,8 @@ $eplanner-light: mat.define-light-theme((
 $eplanner-dark: mat.define-dark-theme((
   color: (
     primary: $my-primary,
-    accent: $my-accent
+    accent: $my-accent,
+    warn: $my-error
   ),
   typography: mat.define-typography-config(),
   density: 0,

@@ -28,6 +28,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'alquilar-salon',
+    loadChildren: () => import('./pages/alquilar-salon/alquilar-salon.module').then( m => m.AlquilarSalonPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'notFound',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule),
   },

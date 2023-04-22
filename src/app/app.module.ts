@@ -13,16 +13,28 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CustomComponentsModule } from './shared/modules/custom-components.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './security/interceptors/auth/auth.interceptor';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { SalonState } from './model/state/salonState';
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, MatSidenavModule, CustomComponentsModule,
+  imports: [
+    BrowserModule, 
+    BrowserAnimationsModule, 
+    AppRoutingModule, 
+    HttpClientModule, 
+    MatSidenavModule, 
+    CustomComponentsModule,
+    IonicModule.forRoot(), 
+    NgxsModule.forRoot([SalonState]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token')
       }
-    })
+    }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

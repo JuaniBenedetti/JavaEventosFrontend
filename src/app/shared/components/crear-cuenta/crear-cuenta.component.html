@@ -38,7 +38,7 @@
                 Debe ingresar una clave
               </mat-error>
             </mat-form-field>
-            <ion-row class="botones">
+            <ion-row>
               <ion-col *ngIf="platform.width() > 500">
                 <button mat-raised-button (click)="iniciarSesion.emit()">Iniciar sesión</button>
               </ion-col>
@@ -101,7 +101,7 @@
             </ion-row>
             <mat-form-field appearance="outline">
               <mat-label>Fecha de nacimiento</mat-label>
-              <input matInput formControlName="fechaNac" [matDatepicker]="picker" placeholder="DD/MM/AAAA">
+              <input matInput formControlName="fechaNac" [matDatepicker]="picker" [max]="maxDate" placeholder="DD/MM/AAAA">
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker touchUi #picker></mat-datepicker>
               <mat-error *ngIf="datosPersonales.get('fechaNac')?.hasError('required')">
@@ -119,7 +119,7 @@
                 El teléfono ingresado no es válido
               </mat-error>
             </mat-form-field>
-            <ion-row class="botones">
+            <ion-row>
               <ion-col>
                 <button mat-button matStepperPrevious color="primary">Volver</button>
               </ion-col>

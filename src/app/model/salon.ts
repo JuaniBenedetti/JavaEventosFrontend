@@ -7,5 +7,4 @@ export class Salon {
     descripcion: string;
     costoPorDia: number;
     nombreImagen: string;
-    propietario: number;
 }

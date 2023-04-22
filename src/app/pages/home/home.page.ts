@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
 import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
+import { Store } from '@ngxs/store';
+import { SalonState, SetSalon } from 'src/app/model/state/salonState';
+
 
 @Component({
   selector: 'app-home',
@@ -22,6 +26,8 @@ export class HomePage implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private store: Store,
+    private router: Router,
     private _salonService: SalonService
     ) { }
 
@@ -52,6 +58,12 @@ export class HomePage implements OnInit {
   confirmacionSalon(salon: Salon): void {
     const dialogRef = this.dialog.open(DialogSalonComponent, {
       data: salon
+    });
+    dialogRef.afterClosed().subscribe(v => {
+      if(v) {
+        this.store.dispatch(new SetSalon(salon));
+        this.router.navigate(['alquilar-salon']);
+      }
     });
   }
 

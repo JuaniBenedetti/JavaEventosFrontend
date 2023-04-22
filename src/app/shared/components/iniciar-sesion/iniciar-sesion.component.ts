@@ -18,7 +18,7 @@ export class IniciarSesionComponent  implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _iniciarSesion: IniciarSesionService
+    private _iniciarSesion: IniciarSesionService,
   ) { }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class IniciarSesionComponent  implements OnInit {
     let username: string = this.datosUsuario.controls['nombreUsuario'].value;
     let password: string = this.datosUsuario.controls['claveUsuario'].value;
     this._iniciarSesion.iniciarSesion(username, password);
-    this._iniciarSesion.usuarioAutenticado().subscribe(autenticado => 
+    this._iniciarSesion.usuarioAutenticado().subscribe(autenticado =>
       autenticado ? this.sesionIniciada.emit(true) : this.sesionIniciada.emit(false)
     );
   }

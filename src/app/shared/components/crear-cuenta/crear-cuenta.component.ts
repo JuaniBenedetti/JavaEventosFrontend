@@ -18,6 +18,7 @@ export class CrearCuentaComponent  implements OnInit {
   datosPersonales: FormGroup;
 
   mostrarClave: boolean = true;
+  maxDate: Date = new Date();
 
   tiposDoc: String[] = [
     'DNI',
