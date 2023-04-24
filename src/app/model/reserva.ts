@@ -8,4 +8,5 @@ export class Reserva {
     cantidadPersonas: number;
     salon: Salon;
     servicios: Servicio[];
+    costoTotal: number;
 }

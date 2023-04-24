@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { es } from 'date-fns/locale';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 

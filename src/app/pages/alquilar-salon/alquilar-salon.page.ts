@@ -67,7 +67,8 @@ export class AlquilarSalonPage implements OnInit {
       fechaEvento: [null, Validators.required],
       cantidadPersonas: [null, [Validators.required, Validators.max(this.salon?.capacidad || 0)]],
       salon: [null, Validators.required],
-      servicios: [[]]
+      servicios: [[]],
+      costoTotal: [Validators.required],
     });
 
     this.reserva.get('salon')?.setValue(this.salon);
