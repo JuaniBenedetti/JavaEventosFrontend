@@ -5,7 +5,9 @@ import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
 import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
 import { Store } from '@ngxs/store';
-import { SalonState, SetSalon } from 'src/app/model/state/salonState';
+import { SetSalon } from 'src/app/model/states/salonState';
+import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
+import { Rol } from 'src/app/model/enums/rol';
 
 
 @Component({
@@ -14,6 +16,11 @@ import { SalonState, SetSalon } from 'src/app/model/state/salonState';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  // Se utiliza para verificar si se puede editar
+  edicion: boolean = false;
+  // Se utiliza para cambiar de modo
+  modoEdicion: boolean = false;
 
   salones: Salon[];
   salonesFiltrados: Salon[];
@@ -28,7 +35,8 @@ export class HomePage implements OnInit {
     public dialog: MatDialog,
     private store: Store,
     private router: Router,
-    private _salonService: SalonService
+    private _salonService: SalonService,
+    private _iniciarSesion: IniciarSesionService
     ) { }
 
   ngOnInit(): void {
@@ -36,6 +44,8 @@ export class HomePage implements OnInit {
       this.salones = salones;
       this.salonesFiltrados = [...salones];
     });
+
+    this.edicion = this.permitirEdicion();
   }
 
   busquedaFiltro(event: Event): void {
@@ -57,7 +67,7 @@ export class HomePage implements OnInit {
 
   confirmacionSalon(salon: Salon): void {
     const dialogRef = this.dialog.open(DialogSalonComponent, {
-      data: salon
+      data: {salon: salon, modoEdicion: this.edicion}
     });
     dialogRef.afterClosed().subscribe(v => {
       if(v) {
@@ -67,4 +77,12 @@ export class HomePage implements OnInit {
     });
   }
 
+  cambiarModoEdicion() {
+    this.modoEdicion = !this.modoEdicion;
+  }
+
+  permitirEdicion(): boolean {
+    let rolesUsuario: Rol[] = this._iniciarSesion.getRolesUsuario();
+    return rolesUsuario.includes(Rol.ROLE_OWNER) || rolesUsuario.includes(Rol.ROLE_ADMIN);
+  }
 }

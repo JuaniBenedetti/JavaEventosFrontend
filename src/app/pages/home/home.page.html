@@ -40,6 +40,19 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </ion-col>
+                                        <ion-col size="12" size-xl="3" class="ion-text-center">
+                                            <!-- <button *ngIf="edicion" mat-raised-button color="primary" (click)="cambiarModoEdicion()">
+                                                Habilitar edición
+                                                <mat-icon iconPositionEnd>close</mat-icon>
+                                            </button> -->
+                                            <mat-slide-toggle [(ngModel)]="modoEdicion" color="primary" labelPosition="before">Habilitar edición</mat-slide-toggle>
+                                        </ion-col>
+                                        <ion-col *ngIf="modoEdicion" size="12" class="ion-text-center">
+                                            <button mat-raised-button color="primary">
+                                                Nuevo salón
+                                                <mat-icon iconPositionEnd>add</mat-icon>
+                                            </button>
+                                        </ion-col>
                                     </ion-row>
                                 </mat-card-content>
                             </mat-card>
@@ -47,7 +60,7 @@
                     </ion-row>
                     <ion-row class="listaSalones">
                         <ion-col *ngFor="let salon of salonesFiltrados" size="12" size-sm="6" size-lg="4" size-xl="3" class="col-padding">
-                            <app-card-salon [salon]="salon" (emitSeleccionarSalon)="confirmacionSalon($event)"></app-card-salon>
+                            <app-card-salon [salon]="salon" [modoEdicion]="modoEdicion" (emitSeleccionarSalon)="confirmacionSalon($event)"></app-card-salon>
                         </ion-col>
                         <ion-col *ngIf="salonesFiltrados?.length == 0">
                             <p class="notFound">Oops! No encontramos nada.</p>

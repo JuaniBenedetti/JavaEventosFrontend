@@ -1,8 +1,19 @@
+<div *ngIf="modoEdicion" class="btn-grid">
+  <button mat-mini-fab color="primary" class="btn-animation">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-mini-fab color="warn" class="btn-animation">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 <mat-card matRipple class="hoverable" (click)="seleccionarSalon(salon)" (mouseenter)="this.panel.open()" (mouseleave)="this.panel.close()">
   <div mat-button>
     <mat-card-title class="nombreSalon psuspensivos">{{salon.denominacion}}</mat-card-title>
     <mat-card-content>
-      <img src="assets\images\salones\{{salon.nombreImagen}}.jpg">
+      <img *ngIf="salon.nombreImagen; else noImage" src="assets\images\salones\{{salon.nombreImagen}}.jpg">
+      <ng-template #noImage>
+        <img src="assets\images\salones\notFound.jpg">
+      </ng-template>
     </mat-card-content>
     <mat-expansion-panel hideToggle [expanded]="!platform.is('desktop')" #panel class="mat-elevation-z0 disabled-pointer">
       <mat-expansion-panel-header>

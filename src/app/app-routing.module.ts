@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { Rol } from './model/enums/rol';
 import { AuthGuard } from './security/guards/auth.guard';
 
 const routes: Routes = [
@@ -15,7 +16,10 @@ const routes: Routes = [
   {
     path: 'servicio',
     loadChildren: () => import('./pages/servicio/servicio.module').then( m => m.ServicioPageModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      roles: [Rol.ROLE_OWNER]
+    }
   },
   {
     path: 'tipoServicio',

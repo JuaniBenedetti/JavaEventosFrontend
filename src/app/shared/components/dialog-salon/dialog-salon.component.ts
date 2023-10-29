@@ -10,7 +10,7 @@ import { Salon } from 'src/app/model/salon';
 export class DialogSalonComponent  implements OnInit {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public salon: Salon
+    @Inject(MAT_DIALOG_DATA) public data: {salon: Salon, modoEdicion: boolean}
   ) { }
 
   ngOnInit() {}

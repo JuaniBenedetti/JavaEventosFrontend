@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
+import { Rol } from 'src/app/model/enums/rol';
+import { RolUsuario } from 'src/app/model/rolUsuario';
+import { Token } from 'src/app/model/token';
 import { SnackInfoService } from '../snack-info/snack-info.service';
 
 @Injectable({
@@ -39,8 +42,13 @@ export class IniciarSesionService {
     return this.tokenExists;
   }
 
-  getRolesUsuario() {
-    console.log(this.jwtHelper.decodeToken(localStorage.getItem('token') || ""));
+  // Busca los rolUsuario del JWT y devuelve una lista de ENUM Rol
+  getRolesUsuario(): Rol[] {
+    let roles: Rol[] = [];
+    this.jwtHelper.decodeToken<Token>(localStorage.getItem('token') || "")?.roles.forEach((ru: RolUsuario) => {
+      roles.push(ru.nombre);
+    });
+    return roles;
   }
 
   setToken(token: string): void {

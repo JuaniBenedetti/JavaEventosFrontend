@@ -40,6 +40,7 @@ export class ServicioPage implements OnInit {
       this.paginator._intl.itemsPerPageLabel="Elementos por página"; // Edito string del paginador
       this.servicios.paginator = this.paginator;
       this.servicios.sort = this.sort;
+      this.ordenamientoTabla();
     });
   }
 
@@ -79,6 +80,17 @@ export class ServicioPage implements OnInit {
     if (this.servicios.paginator) {
       this.servicios.paginator.firstPage();
     }
+  }
+
+  // Custom accessor para tipoServicio.denominacion
+  ordenamientoTabla(): void {
+    this.servicios.sortingDataAccessor = (servicio, property) => {
+      if (property === 'tipoServicio') {
+        return servicio.tipoServicio.denominacion;
+      } else {
+        return servicio[property as keyof Servicio] as string;
+      }
+    };
   }
 
   volver(): void {

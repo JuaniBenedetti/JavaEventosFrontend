@@ -10,6 +10,7 @@ import { Salon } from 'src/app/model/salon';
 export class CardSalonComponent implements OnInit {
 
   @Input() salon: Salon;
+  @Input() modoEdicion: Boolean;
 
   @Output() emitSeleccionarSalon: EventEmitter<Salon> = new EventEmitter();
 

@@ -2,12 +2,12 @@
 <mat-dialog-content>
 <ion-grid>
   <ion-row>
-    <h1>{{salon.denominacion}}</h1>
+    <h1>{{data.salon.denominacion}}</h1>
   </ion-row>
   <ion-row>
     <ion-col size="12" size-sm="6" class="ion-align-items-center flex">
       <p class="descripcion">
-        {{salon.descripcion}}
+        {{data.salon.descripcion}}
       </p>
     </ion-col>
     <ion-col size="12" size-sm="6" class="ion-align-items-center ion-justify-content-center flex">
@@ -16,17 +16,17 @@
           <mat-list-item>
             <mat-icon matListItemIcon fontIcon="groups" class="material-symbols-outlined"></mat-icon>
             <span matListItemTitle>Capacidad</span>
-            <span matListItemLine>{{salon.capacidad}} personas.</span>
+            <span matListItemLine>{{data.salon.capacidad}} personas.</span>
           </mat-list-item>
           <mat-list-item>
             <mat-icon matListItemIcon fontIcon="location_on"></mat-icon>
             <span matListItemTitle>Ubicación</span>
-            <span matListItemLine>{{salon.calleDireccion}}, {{salon.numeroDireccion}}.</span>
+            <span matListItemLine>{{data.salon.calleDireccion}}, {{data.salon.numeroDireccion}}.</span>
           </mat-list-item>
           <mat-list-item>
             <mat-icon matListItemIcon fontIcon="attach_money"></mat-icon>
             <span matListItemTitle>Costo por día</span>
-            <span matListItemLine>{{salon.costoPorDia | currency:'$ ':'symbol':'4.0-0'}}.</span>
+            <span matListItemLine>{{data.salon.costoPorDia | currency:'$ ':'symbol':'4.0-0'}}.</span>
           </mat-list-item>
         </mat-list>
       </ion-row>
@@ -36,5 +36,5 @@
 </mat-dialog-content>
 <mat-dialog-actions class="ion-justify-content-between">
   <button mat-button mat-dialog-close>Volver</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true">Reservar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="data.modoEdicion">Reservar</button>
 </mat-dialog-actions>

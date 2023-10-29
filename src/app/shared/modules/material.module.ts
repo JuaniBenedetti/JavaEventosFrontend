@@ -28,6 +28,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatSidenavModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatCardModule,
@@ -86,7 +88,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatSidenavModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

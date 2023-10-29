@@ -15,7 +15,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './security/interceptors/auth/auth.interceptor';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { SalonState } from './model/state/salonState';
+import { SalonState } from './model/states/salonState';
 
 
 @NgModule({

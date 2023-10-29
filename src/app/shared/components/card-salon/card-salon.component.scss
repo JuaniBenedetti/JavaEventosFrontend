@@ -36,3 +36,34 @@
     margin-bottom: 16px;
     height: auto;
 }
+
+.btn-grid {
+    button {
+        margin-inline: 4px;
+    }
+
+    z-index: 1;
+    position: absolute;
+    right: 1.5rem;
+    top: 0.5rem;
+}
+
+/* Animacion para botones que implementen la clase */  
+.btn-animation {
+  animation-name: moveUpDown;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
