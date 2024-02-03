@@ -13,6 +13,8 @@ export class CardSalonComponent implements OnInit {
   @Input() modoEdicion: Boolean;
 
   @Output() emitSeleccionarSalon: EventEmitter<Salon> = new EventEmitter();
+  @Output() emitEditarSalon: EventEmitter<Salon> = new EventEmitter();
+  @Output() emitEliminarSalon: EventEmitter<Salon> = new EventEmitter();
 
   constructor(
     public platform: Platform
@@ -22,5 +24,13 @@ export class CardSalonComponent implements OnInit {
 
   seleccionarSalon(salon: Salon){
     this.emitSeleccionarSalon.emit(salon);
+  }
+  
+  editarSalon(salon: Salon){
+    this.emitEditarSalon.emit(salon);
+  }
+
+  eliminarSalon(salon: Salon){
+    this.emitEliminarSalon.emit(salon);
   }
 }

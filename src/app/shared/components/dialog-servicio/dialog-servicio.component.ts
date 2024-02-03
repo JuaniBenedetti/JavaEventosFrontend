@@ -10,7 +10,6 @@ import { TipoServicioService } from 'src/app/services/tipo-servicio/tipo-servici
 // Se utiliza para mapear el ingreso de datos del dialog
 export interface DialogServicioComponentData {
   servicio: Servicio;
-  modo: string;
 }
 
 @Component({
@@ -49,10 +48,6 @@ export class DialogServicioComponent  implements OnInit {
         this.datosServicio.patchValue(this.data.servicio);
       }
     });    
-
-    this.data.modo == 'Nuevo' ?
-      this.textoBoton = 'Crear' :
-      this.textoBoton = 'Guardar';
   }
 
   guardarServicio(): void {

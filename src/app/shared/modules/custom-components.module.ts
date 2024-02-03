@@ -9,12 +9,13 @@ import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputActivacionComponent } from '../components/input-activacion/input-activacion.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { DialogSalonComponent } from '../components/dialog-salon/dialog-salon.component';
+import { DialogSalonInfoComponent } from '../components/dialog-salon-info/dialog-salon-info.component';
 import { DialogConfirmacionEmailComponent } from '../components/dialog-confirmacion-email/dialog-confirmacion-email.component';
 import { MenuComponent } from '../components/menu/menu.component';
 import { DialogServicioComponent } from '../components/dialog-servicio/dialog-servicio.component';
 import { DialogTipoServicioComponent } from '../components/dialog-tipo-servicio/dialog-tipo-servicio.component';
 import { DialogConfirmacionComponent } from '../components/dialog-confirmacion/dialog-confirmacion.component';
+import { DialogSalonComponent } from '../components/dialog-salon/dialog-salon.component';
 
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
@@ -28,6 +29,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     IniciarSesionComponent,
     InputActivacionComponent,
     DialogSalonComponent,
+    DialogSalonInfoComponent,
     DialogConfirmacionEmailComponent,
     MenuComponent,
     DialogServicioComponent,
@@ -48,6 +50,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     IniciarSesionComponent,
     InputActivacionComponent,
     DialogSalonComponent,
+    DialogSalonInfoComponent,
     DialogConfirmacionEmailComponent,
     MenuComponent,
     DialogServicioComponent,

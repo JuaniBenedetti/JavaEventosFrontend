@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{data.modo}} servicio</h2>
+<h2 mat-dialog-title>{{data.servicio == null ? 'Nuevo' : 'Editar'}} servicio</h2>
 <form [formGroup]="datosServicio" (ngSubmit)="datosServicio.valid ? guardarServicio() : null">
   <mat-dialog-content>
     <ion-grid>
@@ -36,6 +36,6 @@
   </mat-dialog-content>
   <mat-dialog-actions class="ion-justify-content-between">
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button type="submit" color="primary">{{textoBoton}}</button>
+    <button mat-raised-button type="submit" color="primary">{{data.servicio == null ? 'Crear' : 'Guardar'}}</button>
   </mat-dialog-actions>
 </form>

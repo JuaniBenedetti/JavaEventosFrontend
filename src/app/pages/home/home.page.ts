@@ -3,11 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
-import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
+import { DialogSalonInfoComponent } from 'src/app/shared/components/dialog-salon-info/dialog-salon-info.component';
 import { Store } from '@ngxs/store';
 import { SetSalon } from 'src/app/model/states/salonState';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 import { Rol } from 'src/app/model/enums/rol';
+import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
+import { DialogConfirmacionComponent } from 'src/app/shared/components/dialog-confirmacion/dialog-confirmacion.component';
+import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
 
 
 @Component({
@@ -36,16 +39,49 @@ export class HomePage implements OnInit {
     private store: Store,
     private router: Router,
     private _salonService: SalonService,
-    private _iniciarSesion: IniciarSesionService
+    private _iniciarSesion: IniciarSesionService,
+    private _snackInfo: SnackInfoService
     ) { }
 
   ngOnInit(): void {
+    this.cargarData();
+    this.edicion = this.permitirEdicion();
+  }
+
+  cargarData() {
     this._salonService.findAll().subscribe(salones => {
       this.salones = salones;
       this.salonesFiltrados = [...salones];
     });
+  }
 
-    this.edicion = this.permitirEdicion();
+  guardarSalon(salon?: Salon): void {
+    const dialogRef = this.dialog.open(DialogSalonComponent, {
+      data: {salon}
+    });
+    dialogRef.afterClosed().subscribe(v => {v ? this.cargarData() : null});
+  }
+
+  eliminarSalon(salon: Salon): void {
+    const dialogRef = this.dialog.open(DialogConfirmacionComponent, {
+      data: {
+        title: "Eliminar salon",
+        message: `¿Desea eliminar el salon "${salon.denominacion}"?`,
+        btnPri: "Eliminar",
+        btnSec: "Cancelar"
+      }
+    });
+    dialogRef.afterClosed().subscribe((value) => {
+      if (value) {
+        this._salonService.delete(salon.idSalon).subscribe({
+          next: (resp) => {
+            this.snackBar('ok', 'Salón eliminado con éxito');
+            this.cargarData();
+          },
+          error: (error) => {this.snackBar('error', 'El salón no pudo ser eliminado');}
+        });
+      };
+    });
   }
 
   busquedaFiltro(event: Event): void {
@@ -66,8 +102,8 @@ export class HomePage implements OnInit {
   }
 
   confirmacionSalon(salon: Salon): void {
-    const dialogRef = this.dialog.open(DialogSalonComponent, {
-      data: {salon: salon, modoEdicion: this.edicion}
+    const dialogRef = this.dialog.open(DialogSalonInfoComponent, {
+      data: {salon: salon, edicion: this.edicion}
     });
     dialogRef.afterClosed().subscribe(v => {
       if(v) {
@@ -84,5 +120,9 @@ export class HomePage implements OnInit {
   permitirEdicion(): boolean {
     let rolesUsuario: Rol[] = this._iniciarSesion.getRolesUsuario();
     return rolesUsuario.includes(Rol.ROLE_OWNER) || rolesUsuario.includes(Rol.ROLE_ADMIN);
+  }
+
+  snackBar(status: string, message: string) {
+    this._snackInfo.show(status, message);
   }
 }

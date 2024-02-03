@@ -1,8 +1,8 @@
 <div *ngIf="modoEdicion" class="btn-grid">
-  <button mat-mini-fab color="primary" class="btn-animation">
+  <button mat-mini-fab color="primary" class="btn-animation" (click)="editarSalon(salon)">
     <mat-icon>edit</mat-icon>
   </button>
-  <button mat-mini-fab color="warn" class="btn-animation">
+  <button mat-mini-fab color="warn" class="btn-animation" (click)="eliminarSalon(salon)">
     <mat-icon>delete</mat-icon>
   </button>
 </div>

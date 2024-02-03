@@ -1,40 +1,58 @@
-<h2 mat-dialog-title>¿Deseas reservar este salón?</h2>
-<mat-dialog-content>
-<ion-grid>
-  <ion-row>
-    <h1>{{data.salon.denominacion}}</h1>
-  </ion-row>
-  <ion-row>
-    <ion-col size="12" size-sm="6" class="ion-align-items-center flex">
-      <p class="descripcion">
-        {{data.salon.descripcion}}
-      </p>
-    </ion-col>
-    <ion-col size="12" size-sm="6" class="ion-align-items-center ion-justify-content-center flex">
-      <ion-row>
-        <mat-list>
-          <mat-list-item>
-            <mat-icon matListItemIcon fontIcon="groups" class="material-symbols-outlined"></mat-icon>
-            <span matListItemTitle>Capacidad</span>
-            <span matListItemLine>{{data.salon.capacidad}} personas.</span>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon matListItemIcon fontIcon="location_on"></mat-icon>
-            <span matListItemTitle>Ubicación</span>
-            <span matListItemLine>{{data.salon.calleDireccion}}, {{data.salon.numeroDireccion}}.</span>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon matListItemIcon fontIcon="attach_money"></mat-icon>
-            <span matListItemTitle>Costo por día</span>
-            <span matListItemLine>{{data.salon.costoPorDia | currency:'$ ':'symbol':'4.0-0'}}.</span>
-          </mat-list-item>
-        </mat-list>
+<h2 mat-dialog-title>{{data.salon == null ? 'Nuevo' : 'Editar'}} salón</h2>
+<form [formGroup]="datosSalon" (ngSubmit)="datosSalon.valid ? guardarSalon() : null">
+  <mat-dialog-content>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <mat-form-field appearance="outline">
+            <mat-label>Denominación</mat-label>
+            <input matInput formControlName="denominacion">
+            <mat-error *ngIf="datosSalon.get('denominacion')?.hasError('required')">
+              Debe ingresar una denominación
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Capacidad</mat-label>
+            <input matInput formControlName="capacidad" mask="0*">
+            <mat-error *ngIf="datosSalon.get('capacidad')?.hasError('required')">
+              Debe ingresar una capacidad
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <input matInput formControlName="calleDireccion">
+            <mat-error *ngIf="datosSalon.get('calleDireccion')?.hasError('required')">
+              Debe ingresar una dirección
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Número</mat-label>
+            <input matInput formControlName="numeroDireccion" mask="0*">
+            <mat-error *ngIf="datosSalon.get('numeroDireccion')?.hasError('required')">
+              Debe ingresar un número de calle
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="descripcion" cdkTextareaAutosize="true" cdkAutosizeMaxRows="5"></textarea>
+            <mat-error *ngIf="datosSalon.get('descripcion')?.hasError('required')">
+              Debe ingresar una descripción
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Costo por día</mat-label>
+            <input matInput formControlName="costoPorDia" mask="separator" thousandSeparator=".">
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-error *ngIf="datosSalon.get('costoPorDia')?.hasError('required')">
+              Debe ingresar un costo por día
+            </mat-error>
+          </mat-form-field>
+        </ion-col>
       </ion-row>
-    </ion-col>
-  </ion-row>
-</ion-grid>
-</mat-dialog-content>
-<mat-dialog-actions class="ion-justify-content-between">
-  <button mat-button mat-dialog-close>Volver</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="data.modoEdicion">Reservar</button>
-</mat-dialog-actions>
+    </ion-grid>
+  </mat-dialog-content>
+  <mat-dialog-actions class="ion-justify-content-between">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button type="submit" color="primary">{{data.salon == null ? 'Crear' : 'Guardar'}}</button>
+  </mat-dialog-actions>
+</form>

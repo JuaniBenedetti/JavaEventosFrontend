@@ -44,9 +44,9 @@ export class ServicioPage implements OnInit {
     });
   }
 
-  guardarServicio(modo: string, servicio?: Servicio): void {
+  guardarServicio(servicio?: Servicio): void {
     const dialogRef = this.dialog.open(DialogServicioComponent, {
-      data: {servicio, modo}
+      data: {servicio}
     });
     dialogRef.afterClosed().subscribe(v => {v ? this.cargarData() : null});
   }
