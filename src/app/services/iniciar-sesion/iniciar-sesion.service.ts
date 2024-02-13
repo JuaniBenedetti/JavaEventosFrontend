@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Rol } from 'src/app/model/enums/rol';
-import { RolUsuario } from 'src/app/model/rolUsuario';
 import { Token } from 'src/app/model/token';
+import { Usuario } from 'src/app/model/usuario';
 import { SnackInfoService } from '../snack-info/snack-info.service';
 
 @Injectable({
@@ -38,6 +38,10 @@ export class IniciarSesionService {
     this.tokenExists.next(false);
   }
 
+  registrarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>("http://localhost:8080/register", usuario);
+  }
+
   usuarioAutenticado(): BehaviorSubject<boolean> {
     return this.tokenExists;
   }
@@ -45,10 +49,15 @@ export class IniciarSesionService {
   // Busca los rolUsuario del JWT y devuelve una lista de ENUM Rol
   getRolesUsuario(): Rol[] {
     let roles: Rol[] = [];
-    this.jwtHelper.decodeToken<Token>(localStorage.getItem('token') || "")?.roles.forEach((ru: RolUsuario) => {
-      roles.push(ru.nombre);
+    this.jwtHelper.decodeToken<Token>(localStorage.getItem('token') || "")?.roles.forEach((r: Rol) => {
+      roles.push(Rol[r]);
     });
     return roles;
+  }
+
+  esUsuarioAdministrador(): boolean {
+    let rolesUsuario: Rol[] = this.getRolesUsuario();
+    return rolesUsuario.includes(Rol.ROLE_OWNER) || rolesUsuario.includes(Rol.ROLE_ADMIN);
   }
 
   setToken(token: string): void {

@@ -12,11 +12,21 @@ mat-card-actions {
 
 table {
     width: 100%;
+    min-width: 800px;
 }
 
 .mdc-data-table__header-cell {
     font-weight: bold;
 }
+
+.mat-column-nroReserva {
+    width: 5%
+}
+
+.mat-column-fechaReserva, .mat-column-fechaEvento {
+    min-width: 120px;
+}
+
 
 .mat-column-edicion {
     text-align: end;

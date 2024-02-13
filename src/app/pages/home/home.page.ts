@@ -7,7 +7,6 @@ import { DialogSalonInfoComponent } from 'src/app/shared/components/dialog-salon
 import { Store } from '@ngxs/store';
 import { SetSalon } from 'src/app/model/states/salonState';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
-import { Rol } from 'src/app/model/enums/rol';
 import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
 import { DialogConfirmacionComponent } from 'src/app/shared/components/dialog-confirmacion/dialog-confirmacion.component';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
@@ -45,7 +44,7 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.cargarData();
-    this.edicion = this.permitirEdicion();
+    this.edicion = this._iniciarSesion.esUsuarioAdministrador();
   }
 
   cargarData() {
@@ -115,11 +114,6 @@ export class HomePage implements OnInit {
 
   cambiarModoEdicion() {
     this.modoEdicion = !this.modoEdicion;
-  }
-
-  permitirEdicion(): boolean {
-    let rolesUsuario: Rol[] = this._iniciarSesion.getRolesUsuario();
-    return rolesUsuario.includes(Rol.ROLE_OWNER) || rolesUsuario.includes(Rol.ROLE_ADMIN);
   }
 
   snackBar(status: string, message: string) {

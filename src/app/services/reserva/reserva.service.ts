@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reserva } from 'src/app/model/reserva';
+import { Salon } from 'src/app/model/salon';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,11 @@ export class ReservaService {
 
   findAll(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>("http://localhost:8080/reserva/findAll");
+  }
+
+  findFechasReservadas(salon: Salon): Observable<Date[]> {
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("idSalon", salon.idSalon); 
+    return this.http.get<Date[]>("http://localhost:8080/reserva/findFechasReservadas", {params: httpParams});
   }
 }

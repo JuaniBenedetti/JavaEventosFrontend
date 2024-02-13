@@ -34,7 +34,6 @@ export class AuthGuard {
     let rolesUsuario: Rol[] = this._iniciarSesion.getRolesUsuario();
     // Condiciones: ¿la pagina exige rol? y ¿el usuario no tiene rol admin?.
     if (data['roles'] && !rolesUsuario.includes(Rol.ROLE_ADMIN)) {
-      console.log(rolesUsuario.find(rolUsuario => data['roles'].includes(rolUsuario)) != undefined);
       return rolesUsuario.find(rolUsuario => data['roles'].includes(rolUsuario)) != undefined;
     }
     return true;

@@ -8,10 +8,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
 import { Servicio } from 'src/app/model/servicio';
 import { TipoServicio } from 'src/app/model/tipoServicio';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith, throwIfEmpty } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
+import { Router } from '@angular/router';
 
 
 export interface ServiciosPorTipo {
@@ -31,6 +32,7 @@ export class AlquilarSalonPage implements OnInit {
   salon?: Salon;
   servicios: Servicio[];
   serviciosPorTipo: ServiciosPorTipo[] = [];
+  fechasReservadas: Date[];
 
   // Chip
   serviciosChip: Servicio[] = [];
@@ -39,13 +41,14 @@ export class AlquilarSalonPage implements OnInit {
   serviciosPorTipoOptions: Observable<ServiciosPorTipo[]>;
   servicioForm: FormControl = new FormControl();
 
-  total: number;
+  total: number = 0;
 
   constructor(
     private _servicio: ServicioService,
     private _reserva: ReservaService,
     private _formBuilder: FormBuilder,
     private _snackInfo: SnackInfoService,
+    private router: Router,
     private location: Location,
     private store: Store,
     public platform: Platform,
@@ -58,7 +61,13 @@ export class AlquilarSalonPage implements OnInit {
     });
 
     this.salon = this.store.selectSnapshot(SalonState.getSalon);
-    this.total = this.salon?.costoPorDia || 0;
+
+    if(this.salon) {
+      this._reserva.findFechasReservadas(this.salon).subscribe(fechasReservadas => {
+        this.fechasReservadas = fechasReservadas;
+    });
+      this.total = this.salon.costoPorDia;
+    }
 
     this.reserva = this._formBuilder.group({
       nroReserva: [],
@@ -83,6 +92,7 @@ export class AlquilarSalonPage implements OnInit {
     this._reserva.save(this.reserva.value).subscribe({
       next: (resp) => {
         this.snackBar('ok', 'Reserva registrada con éxito');
+        this.router.navigate(['home']);
       },
       error: (error) => {this.snackBar('error', 'La reserva no pudo ser registrada');}
     });
@@ -121,6 +131,12 @@ export class AlquilarSalonPage implements OnInit {
   ionViewDidLeave() {
     this.store.dispatch(new ClearSalon());
   }
+
+  // Devuelve false para cada fecha del calendario que coincida con alguna de las fechas del arreglo fechasReservadas
+  filtroReservas = (d: Date | null): boolean => {
+    const day = (d || new Date());
+    return this.fechasReservadas?.every(fecha => new Date(fecha).toDateString() != day.toDateString());
+  };
 
   private _filterGroup(denominacion: string): ServiciosPorTipo[] {
     if (denominacion) {

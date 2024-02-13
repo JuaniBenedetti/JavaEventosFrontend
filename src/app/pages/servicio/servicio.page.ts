@@ -67,7 +67,7 @@ export class ServicioPage implements OnInit {
             this.snackBar('ok', 'Servicio eliminado con éxito');
             this.cargarData();
           },
-          error: (error) => {this.snackBar('error', 'El Servicio no pudo ser eliminado');}
+          error: (error) => {this.snackBar('error', 'El servicio no pudo ser eliminado');}
         });
       };
     });

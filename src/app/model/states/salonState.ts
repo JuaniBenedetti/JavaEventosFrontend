@@ -1,4 +1,5 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { Injectable } from '@angular/core';
 import { Salon } from "../salon";
 
 export class SalonStateModel {
@@ -21,6 +22,7 @@ const salonStateDefault: SalonStateModel = { salon: undefined };
     name: 'salon',
     defaults: salonStateDefault
 })
+@Injectable()
 export class SalonState{
 
     @Action(SetSalon)

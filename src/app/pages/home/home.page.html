@@ -9,7 +9,7 @@
                                 <mat-card-content>
                                     <ion-row class="ion-align-items-center">
                                         <ion-col size="12" size-sm="12" size-md="4" size-xl="3">
-                                            <mat-form-field appearance="fill" subscriptSizing="dynamic" matTooltip="Función en desarrollo" #tooltip = matTooltip (click)="tooltip.toggle()">
+                                            <mat-form-field appearance="fill" subscriptSizing="dynamic">
                                                 <mat-icon matPrefix>pin_drop</mat-icon>
                                                 <mat-label>Ubicación</mat-label>
                                                 <input disabled matInput type="text" [matAutocomplete]="auto" [value]="'Gualeguay, Entre Ríos'">
@@ -40,7 +40,7 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </ion-col>
-                                        <ion-col size="12" size-xl="3" class="ion-text-center">
+                                        <ion-col size="12" size-xl="3" class="ion-text-center" *ngIf="edicion">
                                             <mat-slide-toggle [(ngModel)]="modoEdicion" color="primary" labelPosition="before">Habilitar edición</mat-slide-toggle>
                                         </ion-col>
                                         <ion-col *ngIf="modoEdicion" size="12" class="ion-text-center">

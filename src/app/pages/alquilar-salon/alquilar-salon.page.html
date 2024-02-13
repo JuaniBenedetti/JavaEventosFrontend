@@ -25,7 +25,11 @@
                       <form [formGroup]="reserva">
                         <mat-form-field appearance="outline">
                           <mat-label>Fecha del evento</mat-label>
-                          <input matInput formControlName="fechaEvento" [matDatepicker]="picker" [min]="reserva.get('fechaReserva')?.value" placeholder="DD/MM/AAAA">
+                          <input matInput formControlName="fechaEvento" 
+                            [matDatepicker]="picker" 
+                            [matDatepickerFilter]="filtroReservas" 
+                            [min]="reserva.get('fechaReserva')?.value" 
+                            placeholder="DD/MM/AAAA">
                           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker touchUi #picker></mat-datepicker>
                           <mat-error *ngIf="reserva.get('fechaEvento')?.hasError('required')">

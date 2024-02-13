@@ -11,30 +11,30 @@
           <ion-col size="12" size-sm="10" size-md="8">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput formControlName="emailUsuario" placeholder="ejemplo@ejemplo.com">
+              <input matInput formControlName="email" placeholder="ejemplo@ejemplo.com">
               <mat-icon matSuffix>alternate_email</mat-icon>
-              <mat-error *ngIf="datosUsuario.get('emailUsuario')?.hasError('required')">
+              <mat-error *ngIf="datosUsuario.get('email')?.hasError('required')">
                 Debe ingresar un email
               </mat-error>
-              <mat-error *ngIf="datosUsuario.get('emailUsuario')?.hasError('email')">
+              <mat-error *ngIf="datosUsuario.get('email')?.hasError('email')">
                 El email ingresado no es válido
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Nombre de usuario</mat-label>
-              <input matInput formControlName="nombreUsuario">
+              <input matInput formControlName="username">
               <mat-icon matSuffix>account_circle</mat-icon>
-              <mat-error *ngIf="datosUsuario.get('nombreUsuario')?.hasError('required')">
+              <mat-error *ngIf="datosUsuario.get('username')?.hasError('required')">
                 Debe ingresar un nombre de usuario
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Clave</mat-label>
-              <input matInput formControlName="claveUsuario" [type]="mostrarClave ? 'password' : 'text'">
+              <input matInput formControlName="password" [type]="mostrarClave ? 'password' : 'text'">
               <button mat-icon-button matSuffix (click)="mostrarClave = !mostrarClave">
                 <mat-icon>{{mostrarClave ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-              <mat-error *ngIf="datosUsuario.get('claveUsuario')?.hasError('required')">
+              <mat-error *ngIf="datosUsuario.get('password')?.hasError('required')">
                 Debe ingresar una clave
               </mat-error>
             </mat-form-field>
@@ -124,7 +124,7 @@
                 <button mat-button matStepperPrevious color="primary">Volver</button>
               </ion-col>
               <ion-col class="ion-text-end">
-                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosPersonales.valid">Finalizar</button>
+                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosPersonales.valid" (click)="registrar()">Finalizar</button>
               </ion-col>
             </ion-row>
           </ion-col>

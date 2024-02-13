@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Platform } from '@ionic/angular';
+import { Cliente } from 'src/app/model/cliente';
+import { TipoDocumento } from 'src/app/model/enums/tipoDocumento';
+import { ClienteService } from 'src/app/services/cliente/cliente.service';
+import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 import { DialogConfirmacionEmailComponent } from '../dialog-confirmacion-email/dialog-confirmacion-email.component';
 
 @Component({
@@ -28,15 +32,17 @@ export class CrearCuentaComponent  implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
+    private _iniciarSesion: IniciarSesionService,
+    private _cliente: ClienteService,
     public platform: Platform,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.datosUsuario = this._formBuilder.group({
-      emailUsuario: ['', [Validators.required, Validators.email]],
-      nombreUsuario: ['', Validators.required],
-      claveUsuario: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
 
     this.datosPersonales = this._formBuilder.group({
@@ -57,6 +63,17 @@ export class CrearCuentaComponent  implements OnInit {
     });
   }
 
+  registrar() {
+    let usuario = this.datosUsuario.value;
+    this._iniciarSesion.registrarUsuario(usuario).subscribe(u => {
+      if(u) {
+        let cliente = this.formularioToCliente();
+        cliente.usuario = u;
+        this._cliente.save(cliente)
+      }
+    })
+  }
+
   confirmarEmail(stepper: MatStepper): void {
     const dialogRef = this.dialog.open(DialogConfirmacionEmailComponent, {
       width: '400px',
@@ -65,6 +82,17 @@ export class CrearCuentaComponent  implements OnInit {
     dialogRef.afterClosed().subscribe((value) => {
       value ? stepper.next() : this.datosUsuario.controls['emailUsuario'].setValue('')
     });
+  }
+
+  formularioToCliente(): Cliente {
+    let cliente = new Cliente();
+    cliente.apellido = this.datosPersonales.get('apellido')?.value;
+    cliente.nombre = this.datosPersonales.get('nombre')?.value;
+    cliente.tipoDocumento = this.datosPersonales.get('tipoDoc')?.value as TipoDocumento;
+    cliente.nroDocumento = this.datosPersonales.get('nroDoc')?.value;
+    cliente.fechaNacimiento = this.datosPersonales.get('fechaNac')?.value;
+    cliente.telefono = this.datosPersonales.get('telefono')?.value;
+    return cliente;
   }
 
   ngxMaskNroDoc(): string {

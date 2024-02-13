@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 
@@ -7,22 +7,15 @@ import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-se
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent  implements OnInit {
+export class NavbarComponent {
 
+  @Input() usuarioAutenticado: boolean = false;
   @Output() abrirMenu: EventEmitter<void> = new EventEmitter();
-
-  usuarioAutenticado: boolean = false;
 
   constructor(
     private _iniciarSesion: IniciarSesionService,
     private router: Router
   ) { }
-
-  ngOnInit() {
-    this._iniciarSesion.usuarioAutenticado().subscribe(autenticado =>
-      this.usuarioAutenticado = autenticado
-    )
-  }
 
   navigateToHome() {
     this.router.navigate(['home']);
