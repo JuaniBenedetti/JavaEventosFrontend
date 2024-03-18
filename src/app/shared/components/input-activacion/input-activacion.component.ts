@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-input-activacion',
   templateUrl: './input-activacion.component.html',
   styleUrls: ['./input-activacion.component.scss'],
 })
-export class InputActivacionComponent  implements OnInit {
+export class InputActivacionComponent implements OnInit {
+
+  subscriptions: Subscription[] = [];
+
+  @Output() emitCodigoActivacion: EventEmitter<string> = new EventEmitter();
 
   inputActivacion: FormGroup;
 
@@ -20,12 +25,12 @@ export class InputActivacionComponent  implements OnInit {
 
   ngOnInit() {
     this.inputActivacion = this._formBuilder.group({
-      primero: [''],
-      segundo: [''],
-      tercero: [''],
-      cuarto: [''],
-      quinto: [''],
-      sexto:['']
+      primero: ['', Validators.required],
+      segundo: ['', Validators.required],
+      tercero: ['', Validators.required],
+      cuarto: ['', Validators.required],
+      quinto: ['', Validators.required],
+      sexto:['', Validators.required]
     });
   }
 
@@ -42,5 +47,9 @@ export class InputActivacionComponent  implements OnInit {
     input.value == "" ? posicion-- : posicion++;
 
     document.getElementById(controls[posicion])?.focus();
+
+    let value = "";
+    controls.forEach(key => value += this.inputActivacion.get(key)?.value);
+    this.emitCodigoActivacion.emit(value);
   }
 }

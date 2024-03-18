@@ -1,11 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { Cliente } from 'src/app/model/cliente';
+import { UsuarioClienteDTO } from 'src/app/model/dto/usuarioClienteDTO';
 import { TipoDocumento } from 'src/app/model/enums/tipoDocumento';
-import { ClienteService } from 'src/app/services/cliente/cliente.service';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 import { DialogConfirmacionEmailComponent } from '../dialog-confirmacion-email/dialog-confirmacion-email.component';
 
@@ -33,7 +35,7 @@ export class CrearCuentaComponent  implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _iniciarSesion: IniciarSesionService,
-    private _cliente: ClienteService,
+    private router: Router,
     public platform: Platform,
     public dialog: MatDialog
   ) { }
@@ -65,22 +67,31 @@ export class CrearCuentaComponent  implements OnInit {
 
   registrar() {
     let usuario = this.datosUsuario.value;
-    this._iniciarSesion.registrarUsuario(usuario).subscribe(u => {
-      if(u) {
-        let cliente = this.formularioToCliente();
-        cliente.usuario = u;
-        this._cliente.save(cliente)
-      }
-    })
+    let cliente = this.formularioToCliente();
+    let usuarioClienteDTO = new UsuarioClienteDTO(usuario, cliente);
+    this._iniciarSesion.registrarUsuarioCliente(usuarioClienteDTO).subscribe();
+  }
+
+  activar() {
+    let email: string = this.datosUsuario.get('email')?.value;
+    let codigo: string = this.datosUsuario.get('codigo')?.value;
+    console.log(codigo);
+    this._iniciarSesion.activarCuenta(email, codigo).subscribe({
+      next: (res) => {
+        this._iniciarSesion.snackBar('ok', "Cuenta activada con éxito");
+        this.router.navigate(['/landing']);
+      },
+      error: (error: HttpErrorResponse) => {this._iniciarSesion.snackBar('error', error.error);}
+    });;
   }
 
   confirmarEmail(stepper: MatStepper): void {
     const dialogRef = this.dialog.open(DialogConfirmacionEmailComponent, {
       width: '400px',
-      data: this.datosUsuario.get('emailUsuario')?.value
+      data: this.datosUsuario.get('email')?.value
     });
     dialogRef.afterClosed().subscribe((value) => {
-      value ? stepper.next() : this.datosUsuario.controls['emailUsuario'].setValue('')
+      value ? stepper.next() : this.datosUsuario.controls['email'].setValue('')
     });
   }
 

@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Salon } from 'src/app/model/salon';
 import { Store } from '@ngxs/store';
-import { ClearSalon, SalonState } from 'src/app/model/states/salonState';
 import { Platform } from '@ionic/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
@@ -13,6 +12,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ReservaService } from 'src/app/services/reserva/reserva.service';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
 import { Router } from '@angular/router';
+import { ClearSalon, SalonState } from 'src/app/model/state/salonState';
 
 
 export interface ServiciosPorTipo {

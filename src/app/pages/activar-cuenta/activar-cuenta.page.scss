@@ -1,0 +1,11 @@
+ion-grid, ion-row {
+    height: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+:host ::ng-deep mat-step-header {
+    pointer-events: none;
+}

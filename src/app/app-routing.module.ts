@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
   },
   {
+    path: 'activar-cuenta',
+    loadChildren: () => import('./pages/activar-cuenta/activar-cuenta.module').then( m => m.ActivarCuentaPageModule)
+  },
+  {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
     canActivate: [AuthGuard]
@@ -37,13 +41,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'notFound',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule),
-  },
-  {
     path: 'login',
     redirectTo: 'landing',
     pathMatch: 'full'
+  },
+  {
+    path: 'notFound',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule),
   },
   {
     path: '',
@@ -54,7 +58,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'notFound',
     pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({

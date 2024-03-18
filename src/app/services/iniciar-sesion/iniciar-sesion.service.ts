@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { UsuarioClienteDTO } from 'src/app/model/dto/usuarioClienteDTO';
 import { Rol } from 'src/app/model/enums/rol';
 import { Token } from 'src/app/model/token';
 import { Usuario } from 'src/app/model/usuario';
@@ -29,7 +30,7 @@ export class IniciarSesionService {
       next: (res) => {
         this.setToken(res.headers.get('Authorization') || "")
       },
-      error: (error) => {this.snackBar('error', 'Credenciales erróneas');}
+      error: (error) => {this.snackBar('error', 'Credenciales erróneas o cuenta inactiva');}
     });
   }
 
@@ -38,8 +39,14 @@ export class IniciarSesionService {
     this.tokenExists.next(false);
   }
 
-  registrarUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>("http://localhost:8080/register", usuario);
+  registrarUsuarioCliente(usuarioClienteDTO: UsuarioClienteDTO): Observable<Usuario> {
+    return this.http.post<Usuario>("http://localhost:8080/register", usuarioClienteDTO);
+  }
+
+  activarCuenta(email: string, codigo: string) {
+    let httpParams = new HttpParams();
+    httpParams = httpParams.appendAll({"email": email, "codigo": codigo});
+    return this.http.post<string>("http://localhost:8080/enable", null, {params: httpParams});
   }
 
   usuarioAutenticado(): BehaviorSubject<boolean> {

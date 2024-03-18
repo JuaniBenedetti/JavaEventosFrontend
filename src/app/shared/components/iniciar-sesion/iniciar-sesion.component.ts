@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class IniciarSesionComponent  implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _iniciarSesion: IniciarSesionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -35,5 +37,9 @@ export class IniciarSesionComponent  implements OnInit {
     this._iniciarSesion.usuarioAutenticado().subscribe(autenticado =>
       autenticado ? this.sesionIniciada.emit(true) : this.sesionIniciada.emit(false)
     );
+  }
+
+  activarCuentaButton() {
+    this.router.navigate(['/activar-cuenta']);
   }
 }

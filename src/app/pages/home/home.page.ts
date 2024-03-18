@@ -5,7 +5,7 @@ import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
 import { DialogSalonInfoComponent } from 'src/app/shared/components/dialog-salon-info/dialog-salon-info.component';
 import { Store } from '@ngxs/store';
-import { SetSalon } from 'src/app/model/states/salonState';
+import { SetSalon } from 'src/app/model/state/salonState';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 import { DialogSalonComponent } from 'src/app/shared/components/dialog-salon/dialog-salon.component';
 import { DialogConfirmacionComponent } from 'src/app/shared/components/dialog-confirmacion/dialog-confirmacion.component';
