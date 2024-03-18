@@ -2,11 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { Select } from '@ngxs/store';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
-import { DialogConfirmacionEmailComponent } from 'src/app/shared/components/dialog-confirmacion-email/dialog-confirmacion-email.component';
+import {Observable } from 'rxjs';
 
 @Component({
   selector: 'app-activar-cuenta',
@@ -14,6 +15,8 @@ import { DialogConfirmacionEmailComponent } from 'src/app/shared/components/dial
   styleUrls: ['./activar-cuenta.page.scss'],
 })
 export class ActivarCuentaPage implements OnInit {
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   activacionForm: FormGroup;
 

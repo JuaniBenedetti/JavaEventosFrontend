@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Select } from '@ngxs/store';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
+import {Observable } from 'rxjs';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -12,6 +15,8 @@ export class IniciarSesionComponent  implements OnInit {
 
   @Output() crearCuenta: EventEmitter<void> = new EventEmitter();
   @Output() sesionIniciada: EventEmitter<boolean> = new EventEmitter();
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   datosUsuario: FormGroup;
 

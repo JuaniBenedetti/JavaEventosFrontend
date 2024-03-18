@@ -1,11 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Select } from '@ngxs/store';
 import { Servicio } from 'src/app/model/servicio';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 import { TipoServicio } from 'src/app/model/tipoServicio';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
 import { TipoServicioService } from 'src/app/services/tipo-servicio/tipo-servicio.service';
+import {Observable } from 'rxjs';
 
 // Se utiliza para mapear el ingreso de datos del dialog
 export interface DialogServicioComponentData {
@@ -18,6 +21,8 @@ export interface DialogServicioComponentData {
   styleUrls: ['./dialog-servicio.component.scss'],
 })
 export class DialogServicioComponent  implements OnInit {
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   datosServicio: FormGroup;
 

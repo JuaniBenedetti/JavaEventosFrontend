@@ -30,7 +30,7 @@
             <button mat-raised-button type="button" (click)="crearCuenta.emit()">Crear cuenta</button>
           </ion-col>
           <ion-col class="ion-text-end">
-            <button mat-raised-button type="submit" color="primary">Iniciar sesión</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="peticionesPendientes$ | async">Iniciar sesión</button>
           </ion-col>
         </ion-row>
         <ion-row class="ion-padding-top">

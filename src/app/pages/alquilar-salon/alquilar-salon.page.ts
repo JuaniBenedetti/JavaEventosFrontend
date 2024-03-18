@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Salon } from 'src/app/model/salon';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Platform } from '@ionic/angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
@@ -13,6 +13,7 @@ import { ReservaService } from 'src/app/services/reserva/reserva.service';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
 import { Router } from '@angular/router';
 import { ClearSalon, SalonState } from 'src/app/model/state/salonState';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 
 
 export interface ServiciosPorTipo {
@@ -26,6 +27,8 @@ export interface ServiciosPorTipo {
   styleUrls: ['./alquilar-salon.page.scss'],
 })
 export class AlquilarSalonPage implements OnInit {
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   reserva: FormGroup;
   

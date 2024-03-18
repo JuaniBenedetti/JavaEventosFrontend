@@ -10,6 +10,9 @@ import { UsuarioClienteDTO } from 'src/app/model/dto/usuarioClienteDTO';
 import { TipoDocumento } from 'src/app/model/enums/tipoDocumento';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 import { DialogConfirmacionEmailComponent } from '../dialog-confirmacion-email/dialog-confirmacion-email.component';
+import {Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -19,6 +22,8 @@ import { DialogConfirmacionEmailComponent } from '../dialog-confirmacion-email/d
 export class CrearCuentaComponent  implements OnInit {
 
   @Output() iniciarSesion: EventEmitter<void> = new EventEmitter();
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   datosUsuario: FormGroup;
   datosPersonales: FormGroup;

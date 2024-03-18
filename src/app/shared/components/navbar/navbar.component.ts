@@ -1,5 +1,8 @@
-import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 import { IniciarSesionService } from 'src/app/services/iniciar-sesion/iniciar-sesion.service';
 
 @Component({
@@ -11,6 +14,8 @@ export class NavbarComponent {
 
   @Input() usuarioAutenticado: boolean = false;
   @Output() abrirMenu: EventEmitter<void> = new EventEmitter();
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   constructor(
     private _iniciarSesion: IniciarSesionService,

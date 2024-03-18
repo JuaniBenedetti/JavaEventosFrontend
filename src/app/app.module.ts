@@ -16,6 +16,8 @@ import { AuthInterceptor } from './security/interceptors/auth/auth.interceptor';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { SalonState } from './model/state/salonState';
+import { ProgressBarState } from './model/state/progressBarState';
+import { PendingRequestInterceptor } from './security/interceptors/pending-request/pending-request.interceptor';
 
 
 @NgModule({
@@ -28,7 +30,7 @@ import { SalonState } from './model/state/salonState';
     MatSidenavModule, 
     CustomComponentsModule,
     IonicModule.forRoot(), 
-    NgxsModule.forRoot([SalonState]),
+    NgxsModule.forRoot([SalonState, ProgressBarState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -38,7 +40,8 @@ import { SalonState } from './model/state/salonState';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: PendingRequestInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

@@ -36,6 +36,6 @@
   </mat-dialog-content>
   <mat-dialog-actions class="ion-justify-content-between">
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button type="submit" color="primary">{{data.servicio == null ? 'Crear' : 'Guardar'}}</button>
+    <button mat-raised-button type="submit" color="primary" [disabled]="peticionesPendientes$ | async">{{data.servicio == null ? 'Crear' : 'Guardar'}}</button>
   </mat-dialog-actions>
 </form>
