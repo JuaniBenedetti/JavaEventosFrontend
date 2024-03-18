@@ -6,6 +6,7 @@ import { UsuarioClienteDTO } from 'src/app/model/dto/usuarioClienteDTO';
 import { Rol } from 'src/app/model/enums/rol';
 import { Token } from 'src/app/model/token';
 import { Usuario } from 'src/app/model/usuario';
+import { environment } from 'src/environments/environment';
 import { SnackInfoService } from '../snack-info/snack-info.service';
 
 @Injectable({
@@ -23,7 +24,7 @@ export class IniciarSesionService {
 
   iniciarSesion(username: string, password: string) {
     this.http.post(
-      "http://localhost:8080/login", 
+      environment.backendURL + 'login', 
       {"username": username,"password": password},
       {observe: 'response'}
     ).subscribe({
@@ -40,13 +41,13 @@ export class IniciarSesionService {
   }
 
   registrarUsuarioCliente(usuarioClienteDTO: UsuarioClienteDTO): Observable<Usuario> {
-    return this.http.post<Usuario>("http://localhost:8080/register", usuarioClienteDTO);
+    return this.http.post<Usuario>(environment.backendURL +  'register', usuarioClienteDTO);
   }
 
   activarCuenta(email: string, codigo: string) {
     let httpParams = new HttpParams();
     httpParams = httpParams.appendAll({"email": email, "codigo": codigo});
-    return this.http.post<string>("http://localhost:8080/enable", null, {params: httpParams});
+    return this.http.post<string>(environment.backendURL + 'enable', null, {params: httpParams});
   }
 
   usuarioAutenticado(): BehaviorSubject<boolean> {
