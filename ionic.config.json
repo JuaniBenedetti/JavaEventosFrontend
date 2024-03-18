@@ -1,0 +1,7 @@
+{
+  "name": "EPlanner",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

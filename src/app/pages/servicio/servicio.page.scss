@@ -1,0 +1,39 @@
+ion-grid, ion-row {
+    height: 100%;
+}
+
+ion-grid {
+    padding: 0;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-card-actions {
+    padding: 1rem;
+}
+
+.table-container {
+    overflow: scroll;
+}
+
+.mdc-data-table__header-cell {
+    font-weight: bold;
+}
+
+.mat-column-edicion {
+    text-align: end;
+
+    button {
+        margin-inline: 4px; 
+    }
+}
+
+.pColButtonAdd {
+    height: 56px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

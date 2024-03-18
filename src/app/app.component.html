@@ -1,7 +1,14 @@
-<app-navbar></app-navbar> 
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
-
-<p-toast key="atencion" position="top-center"></p-toast>
-<p-toast position="bottom-center"></p-toast>
+<ion-app>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<ion-header>
+  <app-navbar [usuarioAutenticado]="usuarioAutenticado" (abrirMenu)="sidenav.toggle()"></app-navbar>
+</ion-header>
+<mat-sidenav-container hasBackdrop="false">
+  <mat-sidenav #sidenav mode="over">
+    <app-menu *ngIf="usuarioAutenticado" (navigateTo)="navigateTo($event); sidenav.toggle();" (closeMenu)="sidenav.toggle()"></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ion-router-outlet></ion-router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+</ion-app>

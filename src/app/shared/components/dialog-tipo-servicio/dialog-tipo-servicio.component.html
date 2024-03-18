@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{data.modo}} tipo de servicio</h2>
+<form [formGroup]="datosTipoServicio" (ngSubmit)="datosTipoServicio.valid ? guardarTipoServicio() : null">
+  <mat-dialog-content>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <mat-form-field appearance="outline">
+            <mat-label>Denominación</mat-label>
+            <input matInput formControlName="denominacion">
+            <mat-error *ngIf="datosTipoServicio.get('denominacion')?.hasError('required')">
+              Debe ingresar una denominación
+            </mat-error>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </mat-dialog-content>
+  <mat-dialog-actions class="ion-justify-content-between">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button type="submit" color="primary">{{textoBoton}}</button>
+  </mat-dialog-actions>
+</form>

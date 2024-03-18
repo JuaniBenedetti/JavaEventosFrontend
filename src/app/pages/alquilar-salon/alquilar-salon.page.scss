@@ -1,0 +1,45 @@
+ion-grid, .rowGral {
+    height: 100%;
+    max-width: 600px;
+    padding: 0px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-panel-title {
+    font-size: 16px;
+}
+
+h1 {
+    color: var(--ion-color-primary);
+}
+
+.mat-expansion-panel-header {
+    padding-left: 5px;
+}
+
+#nombreSalon, #autocompleteDenominacion {
+    color: var(--ion-color-primary)
+}
+
+#total {
+    font-size: 20px;
+    color: var(--ion-color-primary);
+    text-align: end;
+}
+
+.infoSalon {
+    flex-direction: column;
+}
+
+:host ::ng-deep {
+    .mat-horizontal-content-container {
+        padding-bottom: 0;
+    }
+
+    .mat-expansion-panel-body {
+        font-size: 16px;
+    }
+}

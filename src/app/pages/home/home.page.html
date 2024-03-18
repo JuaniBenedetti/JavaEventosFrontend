@@ -1,0 +1,73 @@
+<ion-content>
+    <ion-grid fullscreen>
+        <ion-row class="ion-justify-content-center">
+            <ion-col size="10">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class="ion-no-padding">
+                            <mat-card>
+                                <mat-card-content>
+                                    <ion-row class="ion-align-items-center">
+                                        <ion-col size="12" size-sm="12" size-md="4" size-xl="3">
+                                            <mat-form-field appearance="fill" subscriptSizing="dynamic">
+                                                <mat-icon matPrefix>pin_drop</mat-icon>
+                                                <mat-label>Ubicación</mat-label>
+                                                <input disabled matInput type="text" [matAutocomplete]="auto" [value]="'Gualeguay, Entre Ríos'">
+                                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                                  <mat-option [value]="'Gualeguay, Entre Ríos'">
+                                                    Gualeguay, Entre Ríos
+                                                  </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </ion-col>
+                                        <ion-col size="12" size-sm="6" size-md="4" size-xl="3">
+                                            <mat-form-field appearance="fill" subscriptSizing="dynamic">
+                                                <mat-icon matPrefix>search</mat-icon>
+                                                <mat-label>Buscar un salón</mat-label>
+                                                <input matInput (keyup)="busquedaFiltro($event)">
+                                            </mat-form-field>
+                                        </ion-col>
+                                        <ion-col size="12" size-sm="6" size-md="4" size-xl="3">
+                                            <mat-form-field appearance="fill" subscriptSizing="dynamic">
+                                                <mat-icon matPrefix>sort</mat-icon>
+                                                <mat-label>Ordenar por</mat-label>
+                                                <mat-select (selectionChange)="ordenarSalones($event.value, orderType.checked)" #selectOrder>
+                                                    <mat-checkbox color="primary" (change)="ordenarSalones(selectOrder.value, $event.checked)" #orderType>Orden descentente</mat-checkbox> 
+                                                    <mat-option *ngFor="let ordenamiento of ordenamientos" [value]="ordenamiento">
+                                                        {{ordenamiento}}
+                                                    </mat-option>
+                                                    <mat-option>No ordenar</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </ion-col>
+                                        <ion-col size="12" size-xl="3" class="ion-text-center" *ngIf="edicion">
+                                            <mat-slide-toggle [(ngModel)]="modoEdicion" color="primary" labelPosition="before">Habilitar edición</mat-slide-toggle>
+                                        </ion-col>
+                                        <ion-col *ngIf="modoEdicion" size="12" class="ion-text-center">
+                                            <button mat-raised-button color="primary" (click)="guardarSalon()">
+                                                Nuevo salón
+                                                <mat-icon iconPositionEnd>add</mat-icon>
+                                            </button>
+                                        </ion-col>
+                                    </ion-row>
+                                </mat-card-content>
+                            </mat-card>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="listaSalones">
+                        <ion-col *ngFor="let salon of salonesFiltrados" size="12" size-sm="6" size-lg="4" size-xl="3" class="col-padding">
+                            <app-card-salon [salon]="salon" [modoEdicion]="modoEdicion" 
+                                (emitSeleccionarSalon)="confirmacionSalon($event)"
+                                (emitEditarSalon)="guardarSalon($event)"
+                                (emitEliminarSalon)="eliminarSalon($event)">
+                            </app-card-salon>
+                        </ion-col>
+                        <ion-col *ngIf="salonesFiltrados?.length == 0">
+                            <p class="notFound">Oops! No encontramos nada.</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

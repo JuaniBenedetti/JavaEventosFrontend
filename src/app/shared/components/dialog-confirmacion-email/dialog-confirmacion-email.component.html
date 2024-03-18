@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Confirma tu email</h1>
+<div mat-dialog-content class="padding-top">
+  ¿Es <strong>{{email}}</strong> tu email? Te enviaremos un código de activación de cuenta a esa dirección.
+</div>
+<div mat-dialog-actions class="ion-justify-content-between">
+  <button mat-button mat-dialog-close>Reingresar</button>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial color="primary" [mat-dialog-close]="true">Confirmar</button>
+</div>
+

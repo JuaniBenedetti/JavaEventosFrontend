@@ -1,0 +1,69 @@
+* {
+    user-select: none;
+}
+
+.nombreSalon {
+    padding: 16px;
+    text-align: start;
+    font-size: 24px;
+}
+
+.precio {
+    font-size: 24px;
+}
+
+.psuspensivos {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.disabled-pointer {
+    pointer-events: none;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+    padding: 0px 24px 0px;
+}
+  
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+    margin-left: 0px;
+    margin-right: 16px;
+    color: var(--ion-color-primary);
+}
+
+.mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
+    margin-bottom: 16px;
+    height: auto;
+}
+
+.btn-grid {
+    button {
+        margin-inline: 4px;
+    }
+
+    z-index: 1;
+    position: absolute;
+    right: 1.5rem;
+    top: 0.5rem;
+}
+
+/* Animacion para botones que implementen la clase */  
+.btn-animation {
+  animation-name: moveUpDown;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

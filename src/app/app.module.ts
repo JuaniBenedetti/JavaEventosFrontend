@@ -1,47 +1,45 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { RouteReuseStrategy } from '@angular/router';
+
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { HttpIntercepterBasicAuthService } from "./Services/service/http-authenticate.service";
-import { environment } from "../environments/environment";
-import { ServicioState } from './State/servicio.state';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { CustomComponentsModule } from './shared/modules/custom-components.module';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './security/interceptors/auth/auth.interceptor';
 import { NgxsModule } from '@ngxs/store';
-import { Location } from '@angular/common';
-import { CustomComponentsModule } from './modules/custom-components/custom-components.module';
-import {CardModule} from "primeng/card";
-import {ReactiveFormsModule} from "@angular/forms";
-import {InputNumberModule} from "primeng/inputnumber";
-import {DropdownModule} from "primeng/dropdown";
-import {RippleModule} from "primeng/ripple";
-import {ButtonModule} from "primeng/button";
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { SalonState } from './model/state/salonState';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BrowserModule, 
+    BrowserAnimationsModule, 
+    AppRoutingModule, 
+    HttpClientModule, 
+    MatSidenavModule, 
     CustomComponentsModule,
-    HttpClientModule,
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    InputNumberModule,
-    DropdownModule,
-    RippleModule,
-    CardModule,
-    ButtonModule,
-    NgxsModule.forRoot([ServicioState], {
-      developmentMode: !environment.production
+    IonicModule.forRoot(), 
+    NgxsModule.forRoot([SalonState]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token')
+      }
     }),
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass:HttpIntercepterBasicAuthService, multi:true},
-    Location,
-    MessageService,
-    DialogService,
-    DynamicDialogRef,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

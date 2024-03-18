@@ -1,0 +1,24 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <mat-card>
+          <mat-card-header *ngIf="!iniciarSesion" class="header">
+            <mat-card-title>Creación de cuenta</mat-card-title>
+            <div>
+              <button mat-icon-button matTooltip="Salir" (click)="iniciarSesion = !iniciarSesion">
+              <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="iniciarSesion">
+            <app-iniciar-sesion (crearCuenta)="iniciarSesion = !iniciarSesion" (sesionIniciada)="navigateTo($event)"></app-iniciar-sesion>
+          </mat-card-content>
+          <mat-card-content *ngIf="!iniciarSesion">
+            <app-crear-cuenta (iniciarSesion)="iniciarSesion = !iniciarSesion"></app-crear-cuenta>
+          </mat-card-content>
+        </mat-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

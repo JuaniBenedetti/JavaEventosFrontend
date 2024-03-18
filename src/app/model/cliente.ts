@@ -1,6 +1,7 @@
-import {Evento} from "./evento";
-import {Usuario} from "./usuario";
+import { Persona } from "./persona";
+import { Usuario } from "./usuario";
 
-export class Cliente extends Usuario {
-  eventos: Evento[] = [];
+export class Cliente extends Persona {
+    
+    usuario: Usuario;
 }

@@ -1,0 +1,41 @@
+ion-grid, ion-row {
+    height: 100%;
+}
+
+ion-grid {
+    padding: 0;
+}
+
+mat-card-actions {
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    min-width: 800px;
+}
+
+.mdc-data-table__header-cell {
+    font-weight: bold;
+}
+
+.mat-column-nroReserva {
+    width: 5%
+}
+
+.mat-column-fechaReserva, .mat-column-fechaEvento {
+    min-width: 120px;
+}
+
+
+.mat-column-edicion {
+    text-align: end;
+
+    button {
+        margin-inline: 4px; 
+    }
+}
+
+.mat-mdc-standard-chip.mdc-evolution-chip--disabled {
+    opacity: 1;
+}

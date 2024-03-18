@@ -1,0 +1,51 @@
+  <ion-content>
+    <ion-grid class="ion-padding-top">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12" size-sm="10" size-md="8" size-lg="6" size-xl="4">
+          <mat-card>
+            <mat-card-header class="header">
+              <mat-card-title>Activación de cuenta</mat-card-title>
+              <div>
+                <button mat-icon-button matTooltip="Salir" (click)="volver()">
+                <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-stepper #stepper linear="true" [orientation]="platform.width() > 750 ? 'horizontal' : 'vertical'">
+                <form [formGroup]="activacionForm">
+                  <mat-step [stepControl]="activacionForm.controls['email']" label="Email">
+                    <p class="info">Ingresa el email de la cuenta que deseas activar</p>
+                    <mat-form-field appearance="outline" class="ion-padding-top">
+                      <mat-label>Email</mat-label>
+                      <input matInput formControlName="email" placeholder="ejemplo@ejemplo.com">
+                      <mat-icon matSuffix>alternate_email</mat-icon>
+                      <mat-error *ngIf="activacionForm.get('email')?.hasError('required')">
+                        Debe ingresar un email
+                      </mat-error>
+                      <mat-error *ngIf="activacionForm.get('email')?.hasError('email')">
+                        El email ingresado no es válido
+                      </mat-error>
+                    </mat-form-field>
+                    <ion-row class="ion-justify-content-end">
+                      <button mat-raised-button color="primary" [disabled]="!activacionForm.get('email')?.valid" (click)="stepper.next()">Siguiente</button>
+                    </ion-row>
+                  </mat-step>
+                  <mat-step label="Código de validación">
+                    <p class="info">Ingresa el código que te enviamos por email para completar la activación</p>
+                    <div class="ion-padding-top">
+                      <app-input-activacion (emitCodigoActivacion)="setCodigoActivacionForm($event)"></app-input-activacion>
+                    </div>
+                    <ion-row class="ion-justify-content-between ion-padding-top">
+                      <button mat-button matStepperPrevious color="primary">Volver</button>
+                      <button mat-raised-button color="primary" [disabled]="!activacionForm.get('codigo')?.valid" (click)="activarCuenta()">Activar cuenta</button>
+                    </ion-row>
+                  </mat-step>
+                </form>
+              </mat-stepper>
+            </mat-card-content>
+          </mat-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

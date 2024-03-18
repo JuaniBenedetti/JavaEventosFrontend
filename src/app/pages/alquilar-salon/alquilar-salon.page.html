@@ -1,0 +1,191 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center rowGral">
+      <ion-col size="auto">
+        <mat-card>
+          <mat-card-header class="header">
+            <mat-card-title>Reservar salón</mat-card-title>
+            <div>
+              <button mat-icon-button matTooltip="Salir" (click)="volver()">
+              <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-stepper #stepper linear="true" [orientation]="platform.width() > 750 ? 'horizontal' : 'vertical'">
+              <mat-step [stepControl]="reserva" label="Reserva">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col class="ion-text-center">
+                      <p class="info">Necesitamos esta información para registrar tu reserva</p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="ion-justify-content-center">
+                    <ion-col>
+                      <form [formGroup]="reserva">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Fecha del evento</mat-label>
+                          <input matInput formControlName="fechaEvento" 
+                            [matDatepicker]="picker" 
+                            [matDatepickerFilter]="filtroReservas" 
+                            [min]="reserva.get('fechaReserva')?.value" 
+                            placeholder="DD/MM/AAAA">
+                          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker touchUi #picker></mat-datepicker>
+                          <mat-error *ngIf="reserva.get('fechaEvento')?.hasError('required')">
+                            Debe ingresar una fecha de reserva
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Asistentes</mat-label>
+                          <input matInput formControlName="cantidadPersonas" placeholder="Número de asistentes" mask="0*">
+                          <mat-error *ngIf="reserva.get('cantidadPersonas')?.hasError('required')">
+                            Debe ingresar un número de asistentes
+                          </mat-error>
+                          <mat-error *ngIf="reserva.get('cantidadPersonas')?.hasError('max')">
+                            El número supera la capacidad del salón
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="reserva.get('fechaEvento')?.valid" appearance="outline">
+                          <mat-label>Servicios</mat-label>
+                          <mat-chip-grid #chipGrid>
+                            <mat-chip-row *ngFor="let servicio of serviciosChip" (removed)="remove(servicio)">
+                              {{servicio.denominacion}}
+                              <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                              </button>
+                            </mat-chip-row>
+                          </mat-chip-grid>
+                          <input
+                            #serviciosInput
+                            placeholder="Agregar servicio..."
+                            [formControl]="servicioForm"                               
+                            [matAutocomplete]="autoGroup"
+                            [matChipInputFor]="chipGrid">
+                          <mat-autocomplete #autoGroup="matAutocomplete" (optionSelected)="selected($event)">
+                            <mat-optgroup *ngFor="let servicioPorTipo of serviciosPorTipoOptions | async" [label]="servicioPorTipo.tipoServicio.denominacion">
+                              <mat-option *ngFor="let servicio of servicioPorTipo.servicios" [value]="servicio">
+                                <span id="autocompleteDenominacion">{{servicio.denominacion}}</span>
+                                <small> - {{servicio.costoPorDia | currency:'$ ':'symbol':'4.0-0'}}</small>
+                              </mat-option>
+                            </mat-optgroup>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                        <p id="total">Total: {{total | currency:'$ ':'symbol':'4.0-0'}}</p>
+                      </form>
+                      <ion-row>
+                        <ion-col *ngIf="platform.width() > 500">
+                          <button mat-raised-button (click)="volver()">Volver</button>
+                        </ion-col>
+                        <ion-col class="ion-text-end">
+                          <button mat-raised-button matStepperNext [disabled]="reserva.invalid" color="primary">Siguiente</button>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </mat-step>
+              <mat-step label="Datos de Pago">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col class="ion-text-center">
+                      <p class="info">Esta información se solicita para efectuar el pago de la reserva</p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Número de tarjeta</mat-label>
+                        <input matInput disabled value="0000 - 1111 - 2222 - 3333">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Fecha de vencimiento</mat-label>
+                        <input matInput disabled value="01/01/2040">
+                        <mat-datepicker-toggle matIconSuffix disabled></mat-datepicker-toggle>
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>CVC</mat-label>
+                        <input matInput disabled value="123">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>DNI titular</mat-label>
+                        <input matInput disabled value="11222333">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Apellido y nombre titular</mat-label>
+                        <input matInput disabled value="Doe John">
+                      </mat-form-field>  
+                      <ion-row>
+                        <ion-col>
+                          <button mat-button (click)="stepper.previous()" color="primary">Volver</button>
+                        </ion-col>
+                        <ion-col class="ion-text-end">
+                          <button mat-raised-button matStepperNext color="primary">Siguiente</button>
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>   
+                  </ion-row>
+                </ion-grid>
+              </mat-step>
+              <mat-step label="Confirmación">
+                <ion-row>
+                  <ion-col class="ion-text-center">
+                    <p class="info">Finalmente te pedimos que confirmes tu reserva</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <h1>{{salon?.denominacion}}</h1>
+                    <p>Dirección: {{salon?.calleDireccion}}, {{salon?.numeroDireccion}}</p>
+                    <p>Capacidad: {{salon?.capacidad}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Fecha del evento: {{reserva.get('fechaEvento')?.value | date: 'dd/MM/yyyy'}}</p>
+                    <p>Asistentes: {{reserva.get('cantidadPersonas')?.value}}</p>
+                    <p *ngIf="reserva.get('servicios')?.value.length > 0">
+                      Servicios solicitados: {{serviciosToString()}}
+                    </p>
+                  </ion-col>
+                </ion-row>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Información de pago
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Número de tarjeta: 0000 - 1111 - 2222 - 3333</p>
+                    <p>Fecha de vencimiento: 01/01/2040</p>
+                    <p>CVC: 123</p>
+                    <p>DNI titular: 11222333</p>
+                    <p>Apellido y nombre titular: Doe John</p>
+                  </mat-expansion-panel>
+                </mat-accordion>
+                <ion-row>
+                  <ion-col>
+                    <p id="total">Total: {{total | currency:'$ ':'symbol':'4.0-0'}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <button mat-button (click)="stepper.previous()" color="primary">Volver</button>
+                  </ion-col>
+                  <ion-col class="ion-text-end">
+                    <button mat-raised-button matStepperNext color="primary" (click)="reservar()">Reservar</button>
+                  </ion-col>
+                </ion-row>
+              </mat-step>
+            </mat-stepper>
+            <ion-row *ngIf="platform.width() < 500">
+              <ion-col class="ion-text-center">
+                <button mat-raised-button (click)="volver()">Cancelar</button>
+              </ion-col>
+            </ion-row>
+          </mat-card-content>
+        </mat-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

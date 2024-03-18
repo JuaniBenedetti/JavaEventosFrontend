@@ -1,12 +1,8 @@
-import {TipoServicio} from "./tiposervicio";
+import { TipoServicio } from "./tipoServicio";
 
 export class Servicio {
-    idServicio: number = 0;
-    denominacion : string = '';
-    costoPorDia: number = 0;
-    tipoServicio : TipoServicio = new TipoServicio();
-
-    constructor(){
-
-    }
+    idServicio: number;
+    denominacion: string;
+    costoPorDia: number;
+    tipoServicio: TipoServicio;
 }

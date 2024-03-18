@@ -1,0 +1,175 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+/* Angular Material custom theme */
+@import "theme/custom-theme.scss";
+
+
+@media (prefers-color-scheme: light) {
+    body {
+        --background-contrast: #f7f7f8;
+    }
+
+    .hoverable:hover {
+        cursor: pointer;
+        box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --background-contrast: #181818;
+    }
+
+    .hoverable:hover {
+        cursor: pointer;
+        box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.50);
+    }
+} 
+  
+// Botones para volver y continuar.
+ion-row.botones ion-col, ion-row.tipoNroDoc ion-col {
+    padding: 0;
+}
+
+// Estilo de header con background-color.
+mat-card-header.header {
+    justify-content: space-between;
+    padding: 8px 16px 8px 16px;
+    border-radius: 4px 4px 0px 0px;
+    background: map-get($my-accent, 500);
+    color: white;
+    
+    .mat-mdc-card-header-text {
+        display: flex;
+        align-items: center;
+    }
+
+    .mat-mdc-card-title {
+        font-size: 26px
+    }
+} 
+
+// Descripción de card y stepper en login y crear-cuenta.
+.info {
+    font-size: 20px;
+    padding: 0 1rem 0 1rem;
+}
+
+// Descripción de card general
+.descripcionCard {
+    font-size: 18px;
+    margin: 16px;
+}
+
+@media screen and (max-width: 500px) {
+    .info {
+        font-size: 20px;
+        margin-top: 0;
+    }
+
+    div.mat-vertical-content {
+        padding: 0 0px 24px 24px;
+    }
+}
+
+// Estilo del input para validación de código al registrar cuenta.
+app-input-activacion mat-form-field { 
+    max-width: 15%;
+    padding-inline: 8px;
+
+    .mdc-text-field  {
+        padding: 0px;
+        align-items: center;
+    }
+
+    .mat-mdc-form-field-infix {
+        padding: 0px !important;
+    }
+
+    .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+            font-size: 56px;
+            text-align: center;
+    }
+    
+    @media screen and (max-width: 500px) { 
+        max-width: 16%;
+        padding-inline: 2px;
+    }
+}
+
+// Agrego espacio para los mensajes de error
+.mat-mdc-form-field-subscript-wrapper {
+    margin-bottom: 16px;
+}
+
+// Alineo los paginator al centro siempre
+div.mat-mdc-paginator-container {
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+// Estilos para snackbar
+.mat-mdc-snack-bar-container {
+    --mdc-snackbar-supporting-text-size: 16px;
+
+    &.snackbar-ok {
+        .mdc-snackbar__surface {
+            background-color: map-get($eplanner-success, 400);
+    }
+        .mdc-snackbar__label {
+            color: map-get(map-get($eplanner-success, "contrast"), 400);
+        }
+    }
+
+    &.snackbar-error {
+        .mdc-snackbar__surface {
+            background-color: map-get($eplanner-error, 400);
+    }
+        .mdc-snackbar__label {
+            color: map-get(map-get($eplanner-error, "contrast"), 400);
+        }
+    }
+
+    &.snackbar-warn {
+        .mdc-snackbar__surface {
+            background-color: map-get($eplanner-warn, 200);
+    }
+        .mdc-snackbar__label {
+            color: map-get(map-get($eplanner-warn, "contrast"), 200);
+        }
+    }
+}
+
+// Quito padding para mostrar errores con mensajes mas largos
+div.mat-mdc-form-field-error-wrapper {
+    padding: 0px;
+}
+
+.overflowScroll {
+    overflow: scroll;
+}
