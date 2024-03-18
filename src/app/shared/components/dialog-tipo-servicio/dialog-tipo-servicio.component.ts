@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Select } from '@ngxs/store';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 import { TipoServicio } from 'src/app/model/tipoServicio';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
 import { TipoServicioService } from 'src/app/services/tipo-servicio/tipo-servicio.service';
+import {Observable } from 'rxjs';
 
 
 export interface DialogTipoServicioComponentData {
@@ -17,6 +20,8 @@ export interface DialogTipoServicioComponentData {
   styleUrls: ['./dialog-tipo-servicio.component.scss'],
 })
 export class DialogTipoServicioComponent  implements OnInit {
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   datosTipoServicio: FormGroup;
 

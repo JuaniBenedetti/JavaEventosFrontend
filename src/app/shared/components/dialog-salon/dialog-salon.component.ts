@@ -4,6 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Salon } from 'src/app/model/salon';
 import { SalonService } from 'src/app/services/salon/salon.service';
 import { SnackInfoService } from 'src/app/services/snack-info/snack-info.service';
+import {Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { ProgressBarState } from 'src/app/model/state/progressBarState';
 
 // Se utiliza para mapear el ingreso de datos del dialog
 export interface DialogSalonComponentData {
@@ -16,6 +19,8 @@ export interface DialogSalonComponentData {
   styleUrls: ['./dialog-salon.component.scss'],
 })
 export class DialogSalonComponent  implements OnInit {
+
+  @Select(ProgressBarState.getPeticionesPendientes) peticionesPendientes$: Observable<boolean>;
 
   datosSalon: FormGroup;
 
@@ -38,7 +43,8 @@ export class DialogSalonComponent  implements OnInit {
       numeroDireccion: ['', {validators: [Validators.required], updateOn: 'submit'}],
       descripcion: ['', {validators: [Validators.required], updateOn: 'submit'}],
       costoPorDia: ['', {validators: [Validators.required], updateOn: 'submit'}],
-      nombreImagen: [null]
+      nombreImagen: [null],
+      propietario: [null]
     });
 
     if(this.data.salon) {
@@ -54,18 +60,19 @@ export class DialogSalonComponent  implements OnInit {
         salon = this.datosSalon.value;
         this._salon.update(salon).subscribe({
           next: (resp) => {this.snackBar('ok', 'Salón actualizado con éxito');},
-          error: (error) => {this.snackBar('error', 'El salón no pudo ser actualizado');}
+          error: (error) => {this.snackBar('error', 'El salón no pudo ser actualizado');},
+          complete: () => {this.matDialogRef.close(this.datosSalon.dirty);}
         });
       // Si no hay servicio entonces guardo uno nuevo
       } else {
         salon = this.datosSalon.value;
         this._salon.save(salon).subscribe({
           next: (resp) => {this.snackBar('ok', 'Salón creado con éxito');},
-          error: (error) => {this.snackBar('error', 'El salón no pudo ser creado');}
+          error: (error) => {this.snackBar('error', 'El salón no pudo ser creado');},
+          complete: () => {this.matDialogRef.close(this.datosSalon.dirty);}
         });
       }
     }
-    this.matDialogRef.close(this.datosSalon.dirty);
   }
 
   snackBar(status: string, message: string) {

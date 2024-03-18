@@ -173,7 +173,7 @@
                     <button mat-button (click)="stepper.previous()" color="primary">Volver</button>
                   </ion-col>
                   <ion-col class="ion-text-end">
-                    <button mat-raised-button matStepperNext color="primary" (click)="reservar()">Reservar</button>
+                    <button mat-raised-button matStepperNext color="primary" (click)="reservar()" [disabled]="peticionesPendientes$ | async">Reservar</button>
                   </ion-col>
                 </ion-row>
               </mat-step>

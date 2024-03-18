@@ -38,7 +38,7 @@
                     </div>
                     <ion-row class="ion-justify-content-between ion-padding-top">
                       <button mat-button matStepperPrevious color="primary">Volver</button>
-                      <button mat-raised-button color="primary" [disabled]="!activacionForm.get('codigo')?.valid" (click)="activarCuenta()">Activar cuenta</button>
+                      <button mat-raised-button color="primary" [disabled]="!activacionForm.get('codigo')?.valid" (click)="activarCuenta()" [disabled]="peticionesPendientes$ | async">Activar cuenta</button>
                     </ion-row>
                   </mat-step>
                 </form>

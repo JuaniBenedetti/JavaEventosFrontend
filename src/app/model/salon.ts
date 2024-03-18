@@ -1,3 +1,5 @@
+import { Administrativo } from "./administrativo";
+
 export class Salon {
     idSalon: number;
     denominacion: string;
@@ -7,4 +9,5 @@ export class Salon {
     descripcion: string;
     costoPorDia: number;
     nombreImagen: string;
+    propietario: Administrativo;
 }

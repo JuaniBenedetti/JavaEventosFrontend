@@ -63,14 +63,14 @@
           <ion-col size="12" size-sm="10" size-md="8">
             <mat-form-field appearance="outline">
               <mat-label>Apellido</mat-label>
-              <input matInput formControlName="apellido" mask="S*">
+              <input matInput formControlName="apellido" mask="S* S*">
               <mat-error *ngIf="datosPersonales.get('apellido')?.hasError('required')">
                 Debe ingresar su apellido
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Nombre</mat-label>
-              <input matInput formControlName="nombre" mask="S*">
+              <input matInput formControlName="nombre" mask="S* S*" [specialCharacters]="[' ']">
               <mat-error *ngIf="datosPersonales.get('nombre')?.hasError('required')">
                 Debe ingresar su nombre
               </mat-error>
@@ -124,7 +124,7 @@
                 <button mat-button matStepperPrevious color="primary">Volver</button>
               </ion-col>
               <ion-col class="ion-text-end">
-                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosPersonales.valid" (click)="registrar()">Finalizar</button>
+                <button mat-raised-button matStepperNext color="primary" [disabled]="!datosPersonales.valid" (click)="registrar()" [disabled]="peticionesPendientes$ | async">Finalizar</button>
               </ion-col>
             </ion-row>
           </ion-col>
@@ -145,7 +145,7 @@
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-end">
-        <button mat-raised-button color="primary" (click)="activar()">Activar</button>
+        <button mat-raised-button color="primary" (click)="activar()" [disabled]="peticionesPendientes$ | async">Activar</button>
       </ion-row>
     </ion-grid>
   </mat-step>
