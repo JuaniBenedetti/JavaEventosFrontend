@@ -141,11 +141,11 @@
       </ion-row>
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-sm="10" size-md="8">
-          <app-input-activacion></app-input-activacion>
+          <app-input-activacion (emitCodigoActivacion)="setCodigoActivacion($event)"></app-input-activacion>
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-end">
-        <button mat-raised-button color="primary" (click)="activar()" [disabled]="peticionesPendientes$ | async">Activar</button>
+        <button mat-raised-button color="primary" (click)="activar()" [disabled]="codigoActivacion.length < 6 || (peticionesPendientes$ | async )">Activar</button>
       </ion-row>
     </ion-grid>
   </mat-step>
