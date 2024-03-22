@@ -28,6 +28,8 @@ export class CrearCuentaComponent  implements OnInit {
   datosUsuario: FormGroup;
   datosPersonales: FormGroup;
 
+  codigoActivacion: string = "";
+
   mostrarClave: boolean = true;
   maxDate: Date = new Date();
 
@@ -79,12 +81,16 @@ export class CrearCuentaComponent  implements OnInit {
 
   activar() {
     let email: string = this.datosUsuario.get('email')?.value;
-    let codigo: string = this.datosUsuario.get('codigo')?.value;
-    console.log(codigo);
-    this._iniciarSesion.activarCuenta(email, codigo).subscribe({
+    this._iniciarSesion.activarCuenta(email, this.codigoActivacion).subscribe({
       next: (res) => {
         this._iniciarSesion.snackBar('ok', "Cuenta activada con éxito");
-        this.router.navigate(['/landing']);
+        this._iniciarSesion.iniciarSesion(this.datosUsuario.get('username')?.value, this.datosUsuario.get('password')?.value);
+        this._iniciarSesion.usuarioAutenticado().subscribe(autenticado => {
+          if(autenticado) {
+            this.iniciarSesion.emit();
+            this.router.navigate(['/home']);
+          }
+        });
       },
       error: (error: HttpErrorResponse) => {this._iniciarSesion.snackBar('error', error.error);}
     });;
@@ -98,6 +104,10 @@ export class CrearCuentaComponent  implements OnInit {
     dialogRef.afterClosed().subscribe((value) => {
       value ? stepper.next() : this.datosUsuario.controls['email'].setValue('')
     });
+  }
+
+  setCodigoActivacion(event: string) {
+    this.codigoActivacion = event;
   }
 
   formularioToCliente(): Cliente {

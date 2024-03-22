@@ -78,8 +78,7 @@ export class AlquilarSalonPage implements OnInit {
       fechaEvento: [null, Validators.required],
       cantidadPersonas: [null, [Validators.required, Validators.max(this.salon?.capacidad || 0)]],
       salon: [null, Validators.required],
-      servicios: [[]],
-      costoTotal: [Validators.required],
+      servicios: [[]]
     });
 
     this.reserva.get('salon')?.setValue(this.salon);
@@ -92,13 +91,15 @@ export class AlquilarSalonPage implements OnInit {
   }
 
   reservar(): void {
-    this._reserva.save(this.reserva.value).subscribe({
-      next: (resp) => {
-        this.snackBar('ok', 'Reserva registrada con éxito');
-        this.router.navigate(['home']);
-      },
-      error: (error) => {this.snackBar('error', 'La reserva no pudo ser registrada');}
-    });
+    if(this.reserva.valid) {
+      this._reserva.save(this.reserva.value).subscribe({
+        next: (resp) => {
+          this.snackBar('ok', 'Reserva registrada con éxito');
+          this.router.navigate(['home']);
+        },
+        error: (error) => {this.snackBar('error', 'La reserva no pudo ser registrada');}
+      });
+    }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
