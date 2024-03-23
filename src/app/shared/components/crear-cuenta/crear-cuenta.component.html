@@ -63,14 +63,14 @@
           <ion-col size="12" size-sm="10" size-md="8">
             <mat-form-field appearance="outline">
               <mat-label>Apellido</mat-label>
-              <input matInput formControlName="apellido" mask="S* S*">
+              <input matInput formControlName="apellido" mask="S* S*" [dropSpecialCharacters]="false">
               <mat-error *ngIf="datosPersonales.get('apellido')?.hasError('required')">
                 Debe ingresar su apellido
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Nombre</mat-label>
-              <input matInput formControlName="nombre" mask="S* S*" [specialCharacters]="[' ']">
+              <input matInput formControlName="nombre" mask="S* S*" [dropSpecialCharacters]="false">
               <mat-error *ngIf="datosPersonales.get('nombre')?.hasError('required')">
                 Debe ingresar su nombre
               </mat-error>
